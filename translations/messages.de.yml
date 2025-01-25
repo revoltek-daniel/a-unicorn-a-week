@@ -1,0 +1,8 @@
+daniel:
+  admin:
+    title: Admin Bereich
+  title: A Daniel a Day
+  nav:
+    homepage: Home
+    user: Benutzer
+    image: Bilder

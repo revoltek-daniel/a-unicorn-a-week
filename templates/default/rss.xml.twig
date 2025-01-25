@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version="2.0">
+ <channel>
+    <title>A daniel a day</title>
+    <link>{{ url('index') }}</link>
+    <description>Ein Daniel pro Tag</description>
+    <language>de-de</language>
+
+
+    {% for image in images %}
+        <item>
+              <title>{{ image.title }}</title>
+
+            <description>
+            {% if image.description %}
+                    {{ image.description }}
+            {% else %}
+                {{ image.title }}
+            {% endif %}
+            </description>
+
+              <link>{{ url('image_detail',  { 'id': image.id, 'slug': image.title|slug }) }}</link>
+              <thumb>{{ absolute_url(asset('uploads/images/thumb/' ~ image.image )) }}</thumb>
+              <image>{{ absolute_url(asset('uploads/images/' ~ image.image )) }}</image>
+
+              <pubDate> {{ image.created|date('r e', 'GMT') }}</pubDate>
+            </item>
+
+    {% endfor %}
+
+ </channel>
+
+</rss>

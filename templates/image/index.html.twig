@@ -1,0 +1,26 @@
+{% extends 'backendBaseLayout.html.twig' %}
+
+{% block main %}
+      <table>
+        <tr>
+            <th{% if pagination.isSorted('e.active') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'e.active') }}</th>
+            <th>Edit</th>
+        </tr>
+
+        {% for image in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ image.title }}</td>
+                              <td>
+                    <a href="{{ path('image_edit', {'id': image.id}) }}" >
+                        <i class="fa fa-pencil-square-o"></i> Edit
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+    <br>
+    <a href="{{ path('image_new') }}"><i class="fa fa-plus"></i> New</a> <br>
+{% endblock %}

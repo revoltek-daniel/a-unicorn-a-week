@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ 'daniel.admin.title'|trans }}</title>
+
+        {{ include('inc/head.html.twig') }}
+
+    </head>
+    <body>
+
+        <div class="header">
+            <div class="grid">
+                <div class="col-12">
+                    {% block header %}
+                        {{ include('inc/mainNavigation.html.twig') }}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="grid">
+                <div class="col-12">
+                    {% block main %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+{%- block button_widget -%}
+    {%- if label is empty -%}
+        {%- if label_format is not empty -%}
+            {% set label = label_format|replace({
+                '%name%': name,
+                '%id%': id,
+            }) %}
+        {%- else -%}
+            {% set label = name|humanize %}
+        {%- endif -%}
+    {%- endif -%}
+
+    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>
+        {%- if attr.icon is defined -%}
+            <i class="fa fa-{{ attr.icon }}"></i>&nbsp;
+        {%- endif -%}
+        {{ label|trans({}, translation_domain) }}
+    </button>
+{%- endblock button_widget -%}

@@ -1,0 +1,266 @@
+*{
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+body {
+    margin: 0;
+    padding: 0 0 0 0;
+    color: #000;
+    background: #efefef url(../images/gray_jean.png);
+    font: normal 0.9em/150% 'Arimo', arial, verdana, sans-serif;
+    text-shadow: 0 0 1px transparent; /* google font pixelation fix */
+}
+
+.grid {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 2em;
+}
+
+button,
+a.btn,
+a.btn:visited,
+a.button,
+a.button:visited,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+    font-family: "Arimo", arial, verdana, sans-serif;
+    position: relative;
+    top: 0;
+    left: 0;
+    vertical-align: middle;
+    margin: 0;
+    padding: 10px 15px;
+    line-height: 100%;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: auto;
+    overflow: visible;
+    font-weight: normal;
+    font-size: 14px; /*Pixels for consistancy*/
+    text-shadow: 0 1px 0 #fff;
+    color: #666;
+    text-decoration: none;
+    vertical-align: middle;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    *display: inline; /*IE ONLY*/
+    zoom: 1;
+    border: 1px solid #ccc;
+    background: rgb(252, 252, 252); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(252, 252, 252, 1) 0%, rgba(224, 224, 224, 1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(252, 252, 252, 1)), color-stop(100%, rgba(224, 224, 224, 1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(252, 252, 252, 1) 0%, rgba(224, 224, 224, 1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(252, 252, 252, 1) 0%, rgba(224, 224, 224, 1) 100%); /* Opera11.10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfcfc', endColorstr='#e0e0e0', GradientType=0); /* IE6-9 */
+    background: linear-gradient(top, rgba(252, 252, 252, 1) 0%, rgba(224, 224, 224, 1) 100%); /* W3C */
+}
+
+button:active,
+a.btn:active,
+a.btn:visited:active,
+a.button:active,
+a.button:visited:active,
+input[type="submit"]:active,
+input[type="reset"]:active,
+input[type="button"]:active {
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2), inset 0 -10px 20px rgba(0, 0, 0, 0.07);
+    -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2), inset 0 -10px 20px rgba(0, 0, 0, 0.07);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2), inset 0 -10px 20px rgba(0, 0, 0, 0.07);
+}
+
+button[disabled], .disabled:active {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+    *padding: 7px 15px;
+}
+
+/*IE 7 ONLY*/
+
+a.btn, a.button {
+}
+
+/*overrides*/
+button.small, a.btn.small, a.button.small {
+    font-size: 0.8em;
+    padding: 5px 10px;
+}
+
+button.medium, a.btn.medium, a.button.medium {
+}
+
+/*default*/
+button.large, a.btn.large, a.button.large {
+    font-size: 1.3em;
+    padding: 10px 20px;
+}
+
+button.disabled, a.btn.disabled, a.button.disabled {
+    color: #ccc;
+    cursor: default;
+    background: #efefef;
+}
+
+button.disabled:hover, a.btn.disabled:hover, a.button.disabled:hover {
+    border: 1px solid #ccc;
+    background: #efefef;
+}
+
+button:hover,
+a.btn:hover,
+a.button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover {
+    border: 1px solid #bbb;
+    background: rgb(252, 252, 252); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(252, 252, 252, 1) 0%, rgba(237, 237, 237, 1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(252, 252, 252, 1)), color-stop(100%, rgba(237, 237, 237, 1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(252, 252, 252, 1) 0%, rgba(237, 237, 237, 1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(252, 252, 252, 1) 0%, rgba(237, 237, 237, 1) 100%); /* Opera11.10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfcfc', endColorstr='#ededed', GradientType=0); /* IE6-9 */
+    background: linear-gradient(top, rgba(252, 252, 252, 1) 0%, rgba(237, 237, 237, 1) 100%); /* W3C */
+}
+
+.menu {
+    border: 1px solid #ccc;
+    background: #eee; /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(252, 252, 252, 1) 0%, rgba(224, 224, 224, 1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(252, 252, 252, 1)), color-stop(100%, rgba(224, 224, 224, 1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(252, 252, 252, 1) 0%, rgba(224, 224, 224, 1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(252, 252, 252, 1) 0%, rgba(224, 224, 224, 1) 100%); /* Opera11.10+ */
+    background: linear-gradient(top, rgba(252, 252, 252, 1) 0%, rgba(224, 224, 224, 1) 100%); /* W3C */
+    font-family: "Arimo", arial, verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 100%;
+    font-size: 0; /* Kill white space gap between LI elements */
+    position: relative;
+    z-index: 1000;
+}
+
+.menu li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: inline-block;
+    *display: inline;
+    position: relative;
+    zoom: 1;
+    line-height: inherit;
+    top: 0;
+    left: 0;
+    font-size: 16px; /* fixed font-size to replace font-size:0 in parent .menu 1em/16px default */
+}
+
+.menu li a {
+    text-shadow: 0px 1px 1px #fff;
+    text-decoration: none;
+    font-size: 0.9em;
+    color: #777;
+    margin: 0;
+    padding: 15px 20px;
+    display: inline-block;
+    position: relative;
+    zoom: 1;
+    line-height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.menu li.current > a,
+.menu li.current > a:hover,
+.menu li.current.hover > a {
+    background: rgb(122, 188, 255); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(122, 188, 255, 1) 0%, rgba(96, 171, 248, 1) 44%, rgba(64, 150, 238, 1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(122, 188, 255, 1)), color-stop(44%, rgba(96, 171, 248, 1)), color-stop(100%, rgba(64, 150, 238, 1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(122, 188, 255, 1) 0%, rgba(96, 171, 248, 1) 44%, rgba(64, 150, 238, 1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(122, 188, 255, 1) 0%, rgba(96, 171, 248, 1) 44%, rgba(64, 150, 238, 1) 100%); /* Opera11.10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7abcff', endColorstr='#4096ee', GradientType=0); /* IE6-9 */
+    background: linear-gradient(top, rgba(122, 188, 255, 1) 0%, rgba(96, 171, 248, 1) 44%, rgba(64, 150, 238, 1) 100%); /* W3C */
+    color: #fff;
+    text-shadow: 0px -1px 0 rgba(0, 0, 0, 0.2);
+    cursor: default;
+}
+
+.menu li a:hover,
+.menu li.hover > a {
+    background: #f5f5f5;
+}
+
+/* sub menus */
+.menu ul {
+    background: #efefef;
+    border: 1px solid #ccc;
+}
+
+/* arrows */
+/* arrow down */
+.menu li.has-menu span.arrow {
+    border-color-top: #ccc;
+    border-color: #ccc transparent transparent transparent;
+}
+
+/* arrow left */
+.menu li li.has-menu span.arrow, .menu.vertical li.has-menu span.arrow {
+    border-color-left: #ccc;
+    border-color: transparent transparent transparent #ccc;
+}
+
+/* arrow right */
+.menu.vertical.right li.has-menu span.arrow {
+    border-color-right: #ccc;
+    border-color: transparent #ccc transparent transparent;
+}
+
+/* dividers */
+.menu ul li.divider {
+    border-top: 1px solid #ccc;
+}
+
+.menu ul li.divider a {
+    border-top: 1px solid #fff;
+}
+
+
+.menu:after {
+    clear: both;
+    content: ' ';
+    display: block;
+    font-size: 0;
+    line-height: 0;
+    visibility: hidden;
+    width: 0;
+    height: 0
+}
+
+.menu li.menu-toggle {
+    display: none;
+}
+
+h1{
+    font-size:3.5em;
+    margin:10px 0 10px 0;
+    font-weight:bold;
+    line-height:140%;
+}
+table{width:100%;margin:0 0 10px 0;text-align:left;border-collapse: collapse;}
+thead, tbody{margin:0;padding:0;}
+th, td{padding:7px 10px;font-size:0.9em;border-bottom:1px dotted #ddd;text-align:left;}
+thead th{font-size:0.9em;padding:3px 10px;border-bottom:1px solid #ddd;}
+tbody tr.last th,
+tbody tr.last td{border-bottom:0;}
