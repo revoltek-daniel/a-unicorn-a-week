@@ -3,7 +3,12 @@
 {% block main %}
     <div id="picture-{{ image.id }}">
         <h1>{{ image.title }}</h1>
-        <img src="{{ asset('uploads/images/' ~ image.image ) }}" width="900" height="600" alt="{{ image.title }}"/>
+
+        <picture>
+            <source srcset="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('image_webp') }}" type="image/webp">
+            <source srcset="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('image_jpg') }}" type="image/jpeg">
+            <img src="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('image_jpg') }}" width="900" height="600" alt="{{ image.title }}">
+        </picture>
 
         {% if image.description %}
             <p>{{ image.description }}</p>

@@ -2,3 +2,44 @@
 liip_imagine:
     # valid drivers options include "gd" or "gmagick" or "imagick"
     driver: "gd"
+    webp:
+        generate: true
+
+    resolvers:
+        default:
+            web_path: ~
+
+    filter_sets:
+        cache: ~
+
+        # the name of the "filter set"
+        thumb:
+            format: jpeg
+            quality: 80
+            filters:
+                fixed:
+                    width: 120
+                    height: 120
+        thumb_webp:
+            format: webp
+            quality: 100
+            filters:
+                fixed:
+                    width: 120
+                    height: 120
+
+        image_jpg:
+            format: jpeg
+            quality: 80
+            filters:
+                fixed:
+                    width:  900
+                    height: 600
+
+        image_webp:
+            format: webp
+            quality: 100
+            filters:
+                fixed:
+                    width:  900
+                    height: 600

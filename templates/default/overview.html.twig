@@ -4,7 +4,11 @@
 
     {% for image in images %}
         <a href="{{ path('image_detail',  { 'id': image.id, 'slug': image.title|slug }) }}">
-            <img src="{{ asset('uploads/images/thumb/' ~ image.image ) }}"  width="120" height="120"  alt="{{ image.title }}" title="{{ image.title }}"/>
+            <picture>
+                <source srcset="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('thumb_webp') }}" type="image/webp">
+                <source srcset="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('thumb') }}" type="image/jpeg">
+                <img src="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('thumb') }}" width="120" height="120" alt="{{ image.title }}" title="{{ image.title }}">
+            </picture>
         </a>
         {% if loop.index%7 ==0 %}
             <br/>
