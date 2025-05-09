@@ -1,4 +1,4 @@
-# a-daniel-a-day
-https://a-daniel-a-day.tubemash.de/
+# a-unicorn-a-week
+https://a-unicorn-a-week.tubemash.de/
 
-Small Symphony app to manage post it pictures.
+Small Symfony app to manage drawn unicorn pictures.
