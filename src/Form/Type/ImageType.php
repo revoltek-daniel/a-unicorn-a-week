@@ -17,7 +17,7 @@ class ImageType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('title');
         $this->addDescription($builder);
@@ -29,7 +29,7 @@ class ImageType extends AbstractType
      *
      * @return void
      */
-    protected function addImage(FormBuilderInterface $builder)
+    protected function addImage(FormBuilderInterface $builder): void
     {
         $builder->add(
             'image',
@@ -40,14 +40,14 @@ class ImageType extends AbstractType
         );
     }
 
-    private function addDescription(FormBuilderInterface $builder)
+    private function addDescription(FormBuilderInterface $builder): void
     {
-          $builder->add(
+        $builder->add(
             'description',
             TextareaType::class,
-            array(
+            [
                 'required' => false,
-            )
+            ]
         );
     }
 }

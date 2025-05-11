@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * User controller.
@@ -43,7 +42,6 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $password = $passwordHasher->hashPassword($user, $user->getPlainPassword());
             $user->setPassword($password);
 

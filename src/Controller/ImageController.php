@@ -52,7 +52,6 @@ class ImageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $data = $form->getData();
             if ($data->getImage()) {
                 $filename = $imageManager->uploadNewPicture($data->getImage(), $image->getId());
@@ -66,10 +65,13 @@ class ImageController extends AbstractController
             return $this->redirectToRoute('image_show', ['id' => $image->getId()]);
         }
 
-        return $this->render('image/new.html.twig',[
-            'image' => $image,
-            'form'  => $form->createView(),
-        ]);
+        return $this->render(
+            'image/new.html.twig',
+            [
+                'image' => $image,
+                'form'  => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -149,7 +151,6 @@ class ImageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $imageManager->removeOldPicture($image->getImage());
 
             $imageManager->remove($image);

@@ -25,7 +25,8 @@ class DefaultController extends AbstractController
 
         $beforeEntry = $imageRepository->getBeforeEntry($image->getId());
 
-        return $this->render('default/index.html.twig',
+        return $this->render(
+            'default/index.html.twig',
             [
             'image' => $image,
             'before' => $beforeEntry]

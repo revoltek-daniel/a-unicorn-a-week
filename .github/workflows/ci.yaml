@@ -16,8 +16,15 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
            php-version: "8.3"
-           tools: composer
+           tools: composer, phpcs, phpstan
            coverage: none
+
+      - name: Check PSR12 code style (PHP_CodeSniffer)
+        run: phpcs --standard=PSR12 -n src
+
+      # https://github.com/phpstan/phpstan
+      - name: Analyse PHP Code (PHPStan)
+        run: phpstan analyse src
 
       # Composer
       - name: Get composer cache directory
@@ -35,17 +42,6 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
 
-      # https://github.com/chekalsky/phpcs-action (community)
-      - name: Check PSR12 code style (PHP_CodeSniffer)
-        uses: chekalsky/phpcs-action@v1.2.0
-        with:
-          enable_warnings: true
-          installed_paths: '${{ github.workspace }}/vendor/squizlabs/php_codesniffer'
-          phpcs_bin_path: './vendor/bin/phpcs src --ignore="Migrations/"'
-
-      # https://github.com/phpstan/phpstan
-      - name: Analyse PHP Code (PHPStan)
-        run: vendor/bin/phpstan analyse src
 
       - name: Cache node_modules
         uses: actions/cache@v4
