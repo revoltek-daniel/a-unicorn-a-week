@@ -40,8 +40,8 @@ class ImageController extends AbstractController
      * @param Request      $request
      * @param ImageRepository $imageManager
      *
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
-
+     * @return Response
+     *
      * @throws \Exception
      */
     #[Route('/new', name: 'image_new', methods: ['GET', 'POST'])]

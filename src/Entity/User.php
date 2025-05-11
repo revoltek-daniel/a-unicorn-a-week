@@ -119,7 +119,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected bool $isActive = false;
 
     /**
-     * @var string
+     * @var array<string>
      *
      * @ORM\Column(type="string")
      */
@@ -169,7 +169,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Get Password.
      *
-     * @return mixed
+     * @return string
      */
     public function getPassword(): string
     {
@@ -177,7 +177,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @param mixed $password
+     * @param string $password
      *
      * @return User
      */
@@ -193,7 +193,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return string
      */
-    public function getCity()
+    public function getCity(): string
     {
         return $this->city;
     }
@@ -215,7 +215,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return string
      */
-    public function getStreet()
+    public function getStreet(): string
     {
         return $this->street;
     }
@@ -237,7 +237,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return string
      */
-    public function getZip()
+    public function getZip(): string
     {
         return $this->zip;
     }
@@ -259,7 +259,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return string
      */
-    public function getCountry()
+    public function getCountry(): string
     {
         return $this->country;
     }
@@ -348,7 +348,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @param string $role
+     * @param array $roles
      *
      * @return User
      */
