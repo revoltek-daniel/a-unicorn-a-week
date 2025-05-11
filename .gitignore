@@ -23,7 +23,6 @@
 /public/media/cache/
 ###< liip/imagine-bundle ###
 
-importmap.php
 /public/uploads
 ###> phpstan/phpstan ###
 phpstan.neon
