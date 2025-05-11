@@ -23,13 +23,16 @@ class DefaultController extends AbstractController
     {
         $image = $imageRepository->getLastEntry();
 
-        $beforeEntry = $imageRepository->getBeforeEntry($image->getId());
+        if ($image instanceof Image) {
+            $beforeEntry = $imageRepository->getBeforeEntry($image->getId());
+        }
 
         return $this->render(
             'default/index.html.twig',
             [
-            'image' => $image,
-            'before' => $beforeEntry]
+                'image' => $image,
+                'before' => $beforeEntry ?? null,
+            ]
         );
     }
 
