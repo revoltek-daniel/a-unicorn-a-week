@@ -58,8 +58,14 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: build
-          path: /
-        run: ls -lisa
-
+          path: /htdocs
+      - name: Create Archive
+        run: tar czf htdocs.tar.gz htdocs
+      - name: Upload
+        env:
+          HOSTNAME: ${{ secrets.SSH_HOSTNAME }}
+          PORT: ${{ secrets.SSH_PORT }}
+          USER: ${{ secrets.SSH_USER }}
+        run: scp htdocs.tar.gz -P $env:PORT $env:USER@$env:HOSTNAME:~
       - name: Create Assets
         run: export APP_ENV=prod && bin/console assets:install %PUBLIC_DIR% && bin/console importmap:install
