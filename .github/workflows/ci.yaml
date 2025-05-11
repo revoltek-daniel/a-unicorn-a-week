@@ -22,7 +22,6 @@ jobs:
       - name: Check PSR12 code style (PHP_CodeSniffer)
         run: phpcs --standard=PSR12 -n src
 
-
       # Composer
       - name: Get composer cache directory
         id: composer-cache
@@ -41,7 +40,7 @@ jobs:
 
       # https://github.com/phpstan/phpstan
       - name: Analyse PHP Code (PHPStan)
-        run: phpstan analyse src
+        run: phpstan analyse --level=1 src
 
       - name: Move files for artifact
         run: mkdir htdocs && mv composer.json composer.lock symfony.lock vendor translations templates public src bin config assets htdocs/
@@ -68,6 +67,6 @@ jobs:
       - name: Create Archive
         run: tar czf htdocs.tar.gz htdocs
       - name: Upload
-        run: scp htdocs.tar.gz -P $env:PORT $env:SERVER:~
+        run: scp htdocs.tar.gz -P $PORT $SERVER:~
       - name: Create Assets
         run: export APP_ENV=prod && bin/console assets:install %PUBLIC_DIR% && bin/console importmap:install
