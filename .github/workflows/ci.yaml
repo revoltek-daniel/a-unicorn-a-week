@@ -65,7 +65,7 @@ jobs:
           name: build
           path: htdocs
       - name: Create Archive
-        run: tar czf --owner=0 --group=0 htdocs.tar.gz htdocs
+        run: tar cz --owner=0 --group=0 -f htdocs.tar.gz htdocs
       - name: Create SSH KEY file
         run: 'echo "$SSH_KEY" > key && chmod 600 key'
         shell: bash
