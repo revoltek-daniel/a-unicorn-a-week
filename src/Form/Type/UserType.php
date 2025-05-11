@@ -19,23 +19,8 @@ class UserType extends AbstractType
         $builder->add('isActive')->add('username');
 
         $this->addPassword($builder);
-        $builder->add('city')->add('street')->add('zip');
-
-        $this->addCountry($builder);
-
-        $builder->add('name');
     }
 
-    protected function addCountry(FormBuilderInterface $builder)
-    {
-        $builder->add(
-            'country',
-            CountryType::class,
-            [
-                'required' => true,
-            ]
-        );
-    }
 
     /**
      * {@inheritdoc}

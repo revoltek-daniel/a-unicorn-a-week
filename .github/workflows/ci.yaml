@@ -79,5 +79,7 @@ jobs:
         run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -p "$PORT" "$SERVER" 'chmod +x htdocs/bin/*'
       - name: Create Assets
         run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -p "$PORT" "$SERVER" 'cd htdocs; export APP_ENV=prod; bin/console importmap:install'
+      - name: Apply Migrations
+        run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -p "$PORT" "$SERVER" 'cd htdocs; export APP_ENV=prod; bin/console doctrine:migrations:migrate --no-interaction'
       - name: Clear cache
         run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -p "$PORT" "$SERVER" 'cd htdocs; export APP_ENV=prod; bin/console cache:clear'
