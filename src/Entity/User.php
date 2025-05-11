@@ -224,7 +224,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->password,
             // see section on salt below
             // $this->salt
-        ) = unserialize($serialized);
+        ) = unserialize($serialized, ['allowed_classes' => [self::class]]);
     }
 
     public function getUserIdentifier(): string
