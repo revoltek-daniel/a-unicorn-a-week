@@ -63,13 +63,15 @@ jobs:
           path: htdocs
       - name: Create Archive
         run: tar czf htdocs.tar.gz htdocs
+      - name: Debug
+        run: ls -lisa htdocs.tar.gz
       - name: Create SSH KEY file
         run: 'echo "$SSH_KEY" > key && chmod 600 key'
         shell: bash
         env:
           SSH_KEY: ${{secrets.SSH_KEY}}
       - name: Upload
-        run: scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -P "$PORT" htdocs.tar.gz "$SERVER":~
+        run: scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -P "$PORT" htdocs.tar.gz "$SERVER":~/
         env:
           SERVER: "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}"
           PORT: ${{ secrets.SSH_PORT }}
