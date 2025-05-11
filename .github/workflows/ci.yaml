@@ -57,6 +57,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     needs: build
+    env:
+       SERVER: "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOSTNAME }}"
+       PORT: ${{ secrets.SSH_PORT }}
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -65,10 +68,6 @@ jobs:
       - name: Create Archive
         run: tar czf htdocs.tar.gz htdocs
       - name: Upload
-        env:
-          HOSTNAME: ${{ secrets.SSH_HOSTNAME }}
-          PORT: ${{ secrets.SSH_PORT }}
-          USER: ${{ secrets.SSH_USER }}
-        run: scp htdocs.tar.gz -P $env:PORT $env:USER@$env:HOSTNAME:~
+        run: scp htdocs.tar.gz -P $env:PORT $env:SERVER:~
       - name: Create Assets
         run: export APP_ENV=prod && bin/console assets:install %PUBLIC_DIR% && bin/console importmap:install
