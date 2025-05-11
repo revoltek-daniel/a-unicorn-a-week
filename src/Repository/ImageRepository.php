@@ -23,17 +23,17 @@ class ImageRepository extends ServiceEntityRepository
     /**
      * @var EntityManager
      */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
-     * @var Paginator
+     * @var PaginatorInterface
      */
-    protected $paginator;
+    protected PaginatorInterface $paginator;
 
     /**
      * @var array
      */
-    protected $repository;
+    protected array $repository;
 
     /**
      * @var array
@@ -67,7 +67,7 @@ class ImageRepository extends ServiceEntityRepository
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface
      */
-    public function getPaginatedList($page = 1, $limit = 10)
+    public function getPaginatedList(int $page = 1, int $limit = 10)
     {
         $qb = $this->createQueryBuilder('image');
         $pagination = $this->paginator->paginate(
@@ -79,16 +79,7 @@ class ImageRepository extends ServiceEntityRepository
         return $pagination;
     }
 
-    /**
-     * Upload file.
-     *
-     * @param UploadedFile $file
-     * @param string       $imageId
-     *
-     * @return string
-     * @throws \Exception
-     */
-    public function uploadNewPicture(UploadedFile $file, $imageId)
+    public function uploadNewPicture(UploadedFile $file, ?int $imageId): string
     {
         if (!in_array($file->getMimeType(), $this->allowedFiletypes)) {
             throw new \Exception('tubemesh.user.edit.picture.invalid');
@@ -107,11 +98,11 @@ class ImageRepository extends ServiceEntityRepository
     /**
      * Remove Old File.
      *
-     * @param $oldFile
+     * @param string $oldFile
      *
      * @return void
      */
-    public function removeOldPicture($oldFile)
+    public function removeOldPicture(string $oldFile): void
     {
         $file = $this->filepath . DIRECTORY_SEPARATOR . $oldFile;
         if ($oldFile && file_exists($file)) {
@@ -131,7 +122,7 @@ class ImageRepository extends ServiceEntityRepository
      *
      * @return void
      */
-    protected function resizePictures($filepath, $filename)
+    protected function resizePictures(string $filepath, string $filename): void
     {
         $fullpath = $filepath . DIRECTORY_SEPARATOR . $filename;
 
@@ -153,11 +144,6 @@ class ImageRepository extends ServiceEntityRepository
         ->save($fullpath);
     }
 
-    /**
-     *
-     *
-     * @return mixed
-     */
     public function findAllByReverseOrder()
     {
         $qb = $this->createQueryBuilder('image');
@@ -166,10 +152,7 @@ class ImageRepository extends ServiceEntityRepository
         return $qb->getQuery()->execute();
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLastEntry()
+    public function getLastEntry(): ?Image
     {
         $qb = $this->createQueryBuilder('image');
 
@@ -180,7 +163,7 @@ class ImageRepository extends ServiceEntityRepository
         return $qb->getQuery()->getOneOrNullResult();
     }
 
-    public function getNextEntry(int $id)
+    public function getNextEntry(int $id): ?Image
     {
         $qb = $this->createQueryBuilder('image');
         $qb->where('image.id > :id')
@@ -192,7 +175,7 @@ class ImageRepository extends ServiceEntityRepository
         return $qb->getQuery()->getOneOrNullResult();
     }
 
-    public function getBeforeEntry(int $id)
+    public function getBeforeEntry(int $id): ?Image
     {
         $qb = $this->createQueryBuilder('image');
         $qb->where('image.id < :id')
@@ -210,7 +193,7 @@ class ImageRepository extends ServiceEntityRepository
         $this->entityManager->flush();
     }
 
-    public function remove(Image $image)
+    public function remove(Image $image): void
     {
         $this->entityManager->remove($image);
         $this->entityManager->flush();

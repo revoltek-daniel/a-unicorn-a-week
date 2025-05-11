@@ -43,7 +43,7 @@ jobs:
 
       # https://github.com/phpstan/phpstan
       - name: Analyse PHP Code (PHPStan)
-        run: phpstan analyse --level=2 src
+        run: phpstan analyse --level=5 src
 
       - name: Move files for artifact
         run: mkdir htdocs && mv importmap.php composer.json composer.lock symfony.lock vendor migrations translations templates public src bin config assets htdocs/
