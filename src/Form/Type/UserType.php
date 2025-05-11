@@ -14,7 +14,7 @@ class UserType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('isActive')->add('username');
 
@@ -25,7 +25,7 @@ class UserType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'data_class' => User::class
@@ -35,12 +35,12 @@ class UserType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'danielbundle_user';
     }
 
-    protected function addPassword(FormBuilderInterface $builder)
+    protected function addPassword(FormBuilderInterface $builder): void
     {
         $builder->add('plainPassword', PasswordType::class);
     }

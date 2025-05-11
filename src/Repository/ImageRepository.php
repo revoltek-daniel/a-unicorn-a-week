@@ -9,7 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Imagine\Gd\Imagine;
 use Imagine\Image\Box;
-use Knp\Component\Pager\Paginator;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -31,14 +31,9 @@ class ImageRepository extends ServiceEntityRepository
     protected PaginatorInterface $paginator;
 
     /**
-     * @var array
+     * @var array<string>
      */
-    protected array $repository;
-
-    /**
-     * @var array
-     */
-    protected array $allowedFiletypes = array('image/jpeg', 'image/png');
+    protected array $allowedFiletypes = ['image/jpeg', 'image/png'];
 
     /**
      * @var string
@@ -46,9 +41,10 @@ class ImageRepository extends ServiceEntityRepository
     private string $filepath;
 
     /**
+     * @param ManagerRegistry $registry
      * @param EntityManager $entityManager
-     * @param PaginatorInterface     $paginator
-     * @param string        $filepath
+     * @param PaginatorInterface $paginator
+     * @param string $filepath
      */
     public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager, PaginatorInterface $paginator, string $filepath)
     {
@@ -65,9 +61,9 @@ class ImageRepository extends ServiceEntityRepository
      * @param int $page
      * @param int $limit
      *
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface
+     * @return PaginationInterface<int, mixed>
      */
-    public function getPaginatedList(int $page = 1, int $limit = 10)
+    public function getPaginatedList(int $page = 1, int $limit = 10): PaginationInterface
     {
         $qb = $this->createQueryBuilder('image');
         $pagination = $this->paginator->paginate(

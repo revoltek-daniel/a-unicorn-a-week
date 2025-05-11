@@ -180,7 +180,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @param array $roles
+     * @param array<string> $roles
      *
      * @return User
      */
@@ -192,7 +192,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return array
+     * @return array<string>
      */
     public function getRoles(): array
     {
@@ -204,7 +204,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /** @see \Serializable::serialize() */
-    public function serialize()
+    public function serialize(): string
     {
         return serialize(array(
             $this->id,
@@ -216,7 +216,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /** @see \Serializable::unserialize() */
-    public function unserialize($serialized)
+    public function unserialize($serialized): void
     {
         list (
             $this->id,
