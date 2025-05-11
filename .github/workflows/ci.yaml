@@ -44,7 +44,7 @@ jobs:
         run: phpstan analyse src
 
       - name: Create Assets
-        run: vendor/bin/console assets:install %PUBLIC_DIR% && vendor/bin/console importmap:install
+        run: bin/console assets:install %PUBLIC_DIR% && bin/console importmap:install
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v4
