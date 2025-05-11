@@ -74,7 +74,7 @@ jobs:
       - name: Upload
         run: scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -P "$PORT" htdocs.tar.gz "$SERVER:~/"
       - name: Extract Archive
-        run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -p "$PORT" "$SERVER" 'tar xzf htdocs.tar.gz; rm htdocs.tar.gz'
+        run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -p "$PORT" "$SERVER" 'tar --no-same-owner --no-same-permissions xzf htdocs.tar.gz; rm htdocs.tar.gz'
       - name: Create Assets
         run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -p "$PORT" "$SERVER" 'cd htdocs; export APP_ENV=prod; bin/console assets:install %PUBLIC_DIR%; bin/console importmap:install'
       - name: Clear cache
