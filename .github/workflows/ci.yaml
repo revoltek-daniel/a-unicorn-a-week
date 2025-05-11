@@ -68,7 +68,7 @@ jobs:
         env:
           SSH_KEY: ${{secrets.SSH_KEY}}
       - name: Upload
-        run: scp -i key -P "$PORT" htdocs.tar.gz "$SERVER":~
+        run: scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -P "$PORT" htdocs.tar.gz "$SERVER":~
         env:
           SERVER: "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOSTNAME }}"
           PORT: ${{ secrets.SSH_PORT }}
