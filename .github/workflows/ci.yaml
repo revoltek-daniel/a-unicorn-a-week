@@ -43,11 +43,14 @@ jobs:
       - name: Analyse PHP Code (PHPStan)
         run: phpstan analyse src
 
+      - name: Move files for artifact
+        run: mkdir htdocs && mv composer.json composer.lock symfony.lock vendor translations templates public src bin config assets htdocs/
+
       - name: Archive production artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build
-          path: public/build
+          path: /htdocs
 
   deployment:
     name: Deploy
