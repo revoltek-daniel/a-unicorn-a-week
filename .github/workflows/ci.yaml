@@ -74,7 +74,7 @@ jobs:
       - name: Upload
         run: scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -P "$PORT" htdocs.tar.gz "$SERVER:~/"
       - name: Cleanup old files
-        run: cd htdocs && rm -rf vendor migrations translations templates src bin config assets
+        run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -p "$PORT" "$SERVER" 'cd htdocs && rm -rf vendor migrations translations templates src bin config assets'
       - name: Extract Archive
         run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -p "$PORT" "$SERVER" 'tar --no-same-owner --no-same-permissions -xzf htdocs.tar.gz; rm htdocs.tar.gz'
       - name: Add Exec flag to console
