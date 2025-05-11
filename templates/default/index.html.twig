@@ -1,19 +1,23 @@
 {% extends 'baseLayout.html.twig' %}
 {% block main %}
-    <div id="picture-{{ image.id }}">
-        <h1>{{ image.title }}</h1>
-        <img src="{{ asset('uploads/images/' ~ image.image ) }}"  width="900" height="600"  alt="{{ image.title }}"/>
+    {% if image %}
+        <div id="picture-{{ image.id }}">
+            <h1>{{ image.title }}</h1>
+            <img src="{{ asset('uploads/images/' ~ image.image ) }}"  width="900" height="600"  alt="{{ image.title }}"/>
 
-        {% if image.description %}
-            <p>{{ image.description }}</p>
-        {% endif %}
-    </div>
+            {% if image.description %}
+                <p>{{ image.description }}</p>
+            {% endif %}
+        </div>
 
-    <div class="control">
-        {% if before %}
-            <a href="{{ path('image_detail',  { 'id': before.id, 'slug': before.title|slug }) }}" class="btn">
-                <i class="fa fa-caret-left"></i> Älterer Eintrag</a>
-        {% endif %}
-        <a href="{{ path('image_overview') }}">Overview</a>
-    </div>
+        <div class="control">
+            {% if before %}
+                <a href="{{ path('image_detail',  { 'id': before.id, 'slug': before.title|slug }) }}" class="btn">
+                    <i class="fa fa-caret-left"></i> Älterer Eintrag</a>
+            {% endif %}
+            <a href="{{ path('image_overview') }}">Overview</a>
+        </div>
+    {% else %}
+        <p>Kein Bild vorhanden</p>
+    {% endif %}
 {% endblock %}
