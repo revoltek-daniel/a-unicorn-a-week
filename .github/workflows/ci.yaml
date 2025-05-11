@@ -63,7 +63,8 @@ jobs:
           path: htdocs
       - name: Create Archive
         run: tar czf htdocs.tar.gz htdocs
-      - run: 'echo "$SSH_KEY" > key'
+      - name: Create SSH KEY file
+        run: 'echo "$SSH_KEY" > key && chmod 600 key'
         shell: bash
         env:
           SSH_KEY: ${{secrets.SSH_KEY}}
