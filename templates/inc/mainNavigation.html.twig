@@ -1,6 +1,15 @@
 <!-- Menu Horizontal -->
 <ul class="menu">
-    <li><a href="{{ path('index') }}">{{ 'daniel.nav.homepage'|trans }}</a></li>
-    <li><a href="{{ path('user_index') }}">{{ 'daniel.nav.user'|trans }}</a></li>
-    <li class="last"><a href="{{ path('image_index') }}">{{ 'daniel.nav.image'|trans }}</a></li>
+    <li><a href="{{ path('index') }}">{{ 'daniel.nav.homepage'|trans }}</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <li><a href="{{ path('user_index') }}">{{ 'daniel.nav.user'|trans }}</a></li>
+    {% endif %}
+    {% if is_granted('ROLE_USER') %}
+        <li><a href="{{ path('image_index') }}">{{ 'daniel.nav.image'|trans }}</a></li>
+    {% endif %}
+    {% if app.user %}
+        <li class="last"><a href="{{ path('security_logout') }}">{{ 'daniel.nav.logout'|trans }}</a></li>
+    {% else %}
+        <li class="last"><a href="{{ path('security_login') }}">{{ 'daniel.nav.login'|trans }}</a></li>
+    {% endif %}
 </ul>

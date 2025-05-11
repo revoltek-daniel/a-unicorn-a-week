@@ -6,3 +6,5 @@ daniel:
     homepage: Home
     user: Benutzer
     image: Bilder
+    logout: Logout
+    login: Login
