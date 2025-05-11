@@ -85,4 +85,10 @@ class DefaultController extends AbstractController
             'images' => $images,
         ]);
     }
+
+    #[Route('/admin', name: 'admin_index', methods: ['GET'])]
+    public function adminIndex(): Response
+    {
+        return $this->redirectToRoute('security_login');
+    }
 }

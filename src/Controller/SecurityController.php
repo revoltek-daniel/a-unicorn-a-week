@@ -21,6 +21,10 @@ class SecurityController extends AbstractController
     #[Route('/login', name: 'security_login')]
     public function loginAction(AuthenticationUtils $authUtils): Response
     {
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('image_index');
+        }
+
          // get the login error if there is one
         $error = $authUtils->getLastAuthenticationError();
 
