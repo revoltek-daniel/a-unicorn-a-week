@@ -70,7 +70,10 @@ jobs:
       - name: Upload
         run: scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -P "$PORT" htdocs.tar.gz "$SERVER":~
         env:
-          SERVER: "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOSTNAME }}"
+          SERVER: "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}"
           PORT: ${{ secrets.SSH_PORT }}
       - name: Create Assets
-        run: export APP_ENV=prod && bin/console assets:install %PUBLIC_DIR% && bin/console importmap:install
+        run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -p "$PORT" "$SERVER" 'export APP_ENV=prod; bin/console assets:install %PUBLIC_DIR%; bin/console importmap:install'
+        env:
+          SERVER: "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}"
+          PORT: ${{ secrets.SSH_PORT }}
