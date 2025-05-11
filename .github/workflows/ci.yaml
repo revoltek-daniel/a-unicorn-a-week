@@ -56,6 +56,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     needs: build
+    env:
+      SERVER: "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}"
+      PORT: ${{ secrets.SSH_PORT }}
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -70,18 +73,10 @@ jobs:
           SSH_KEY: ${{secrets.SSH_KEY}}
       - name: Upload
         run: scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -P "$PORT" htdocs.tar.gz "$SERVER:~/"
-        env:
-          SERVER: "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}"
-          PORT: ${{ secrets.SSH_PORT }}
+
       - name: Extract Archive
         run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -p "$PORT" "$SERVER" 'tar xzf htdocs.tar.gz; rm htdocs.tar.gz'
       - name: Create Assets
         run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -p "$PORT" "$SERVER" 'export APP_ENV=prod; bin/console assets:install %PUBLIC_DIR%; bin/console importmap:install'
-        env:
-          SERVER: "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}"
-          PORT: ${{ secrets.SSH_PORT }}
       - name: Clear cache
         run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i key -p "$PORT" "$SERVER" 'export APP_ENV=prod; bin/console clear:cache'
-        env:
-          SERVER: "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}"
-          PORT: ${{ secrets.SSH_PORT }}
