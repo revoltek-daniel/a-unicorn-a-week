@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Image;
 use App\Repository\ImageRepository;
+use App\Service\ImageService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -23,13 +25,13 @@ class ImageController extends AbstractController
      * Lists all image entities.
      *
      * @param Request $request
-     * @param ImageRepository $imageManager
+     * @param ImageRepository $imageRepository
      * @return Response
      */
     #[Route('/', name: 'image_index', methods: ['GET'])]
-    public function indexAction(Request $request, ImageRepository $imageManager): Response
+    public function indexAction(Request $request, ImageRepository $imageRepository): Response
     {
-        $paginatedList = $imageManager->getPaginatedList($request->query->getInt('page', 1), 20);
+        $paginatedList = $imageRepository->getPaginatedList($request->query->getInt('page', 1), 20);
 
         return $this->render('image/index.html.twig', ['pagination' => $paginatedList]);
     }
@@ -37,15 +39,14 @@ class ImageController extends AbstractController
     /**
      * Creates a new image entity.
      *
-     * @param Request      $request
-     * @param ImageRepository $imageManager
+     * @param Request $request
+     * @param ImageRepository $imageRepository
+     * @param ImageService $imageService
      *
      * @return Response
-     *
-     * @throws \Exception
      */
     #[Route('/new', name: 'image_new', methods: ['GET', 'POST'])]
-    public function newAction(Request $request, ImageRepository $imageManager): Response
+    public function newAction(Request $request, ImageRepository $imageRepository, ImageService $imageService): Response
     {
         $image = new Image();
         $form = $this->createForm(\App\Form\Type\ImageType::class, $image);
@@ -55,13 +56,13 @@ class ImageController extends AbstractController
             try {
                 $data = $form->getData();
                 if ($data->getImage()) {
-                    $filename = $imageManager->uploadNewPicture($data->getImage(), $image->getId());
+                    $filename = $imageService->uploadNewPicture($data->getImage(), $image->getId());
 
-                    $imageManager->removeOldPicture($image->getImage());
+                    $imageService->removeOldPicture($image->getImage());
                     $image->setImage($filename);
                 }
 
-                $imageManager->persist($image);
+                $imageRepository->persist($image);
 
                 return $this->redirectToRoute('image_show', ['id' => $image->getId()]);
             } catch (\Exception $e) {
@@ -97,23 +98,29 @@ class ImageController extends AbstractController
      *
      * @param Request $request
      * @param Image $image
-     * @param ImageRepository $imageManager
+     * @param ImageRepository $imageRepository
+     * @param ImageService $imageService
      *
      * @return Response
      */
     #[Route('/{id}/edit', name: 'image_edit', methods: ['GET', 'POST'])]
-    public function editAction(Request $request, Image $image, ImageRepository $imageManager): Response
-    {
+    public function editAction(
+        Request $request,
+        Image $image,
+        ImageRepository $imageRepository,
+        ImageService $imageService
+    ): Response {
         $deleteForm = $this->createDeleteForm($image);
 
-        $oldLogo = $image->getImage();
+        $oldImage = $image->getImage();
 
-        if ($oldLogo) {
+        if ($oldImage) {
             $path = $this->getParameter('daniel.file.path');
             if (is_string($path) === false) {
                 throw new \RuntimeException('The parameter "daniel.file.path" must be a string.');
             }
-            $logo = new File($path . DIRECTORY_SEPARATOR . $oldLogo);
+
+            $logo = new File($path . DIRECTORY_SEPARATOR . $oldImage);
             $image->setImage($logo);
         }
 
@@ -124,15 +131,15 @@ class ImageController extends AbstractController
             try {
                 $data = $editForm->getData();
                 if ($data->getImage()) {
-                    $filename = $imageManager->uploadNewPicture($data->getImage(), $image->getId());
+                    $filename = $imageService->uploadNewPicture($data->getImage(), $image->getId());
 
-                    $imageManager->removeOldPicture($oldLogo);
+                    $imageService->removeOldPicture($oldImage);
                     $image->setImage($filename);
                 } else {
-                    $image->setImage($oldLogo);
+                    $image->setImage($oldImage);
                 }
 
-                $imageManager->flush();
+                $imageRepository->flush();
 
                 return $this->redirectToRoute('image_index');
             } catch (\Exception $e) {
@@ -150,22 +157,27 @@ class ImageController extends AbstractController
     /**
      * Deletes a image entity.
      *
-     * @param Request      $request
-     * @param Image        $image
-     * @param ImageRepository $imageManager
+     * @param Request $request
+     * @param Image $image
+     * @param ImageRepository $imageRepository
+     * @param ImageService $imageService
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     #[Route('/{id}', name: 'image_delete', methods: ['POST','DELETE'])]
-    public function deleteAction(Request $request, Image $image, ImageRepository $imageManager): Response
-    {
+    public function deleteAction(
+        Request $request,
+        Image $image,
+        ImageRepository $imageRepository,
+        ImageService $imageService
+    ): Response {
         $form = $this->createDeleteForm($image);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $imageManager->removeOldPicture($image->getImage());
+            $imageService->removeOldPicture($image->getImage());
 
-            $imageManager->remove($image);
+            $imageRepository->remove($image);
         }
 
         return $this->redirectToRoute('image_index');
