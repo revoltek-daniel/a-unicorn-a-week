@@ -30,14 +30,13 @@ class ImageRepository extends ServiceEntityRepository
 
 
     public function __construct(
-        ManagerRegistry                  $registry,
+        ManagerRegistry $registry,
         protected EntityManagerInterface $entityManager,
-        protected PaginatorInterface     $paginator,
-        protected ImagineInterface       $imagine,
-        protected string                 $filepath,
-        protected string                 $rootPath,
+        protected PaginatorInterface $paginator,
+        protected ImagineInterface $imagine,
+        protected string $filepath,
+        protected string $rootPath,
     ) {
-
         parent::__construct($registry, Image::class);
     }
 

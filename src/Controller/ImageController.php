@@ -22,8 +22,9 @@ class ImageController extends AbstractController
     /**
      * Lists all image entities.
      *
-     * @param Request      $request
+     * @param Request $request
      * @param ImageRepository $imageManager
+     * @return Response
      */
     #[Route('/', name: 'image_index', methods: ['GET'])]
     public function indexAction(Request $request, ImageRepository $imageManager): Response
@@ -117,7 +118,7 @@ class ImageController extends AbstractController
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-          //  try {
+            try {
                 $data = $editForm->getData();
                 if ($data->getImage()) {
                     $filename = $imageManager->uploadNewPicture($data->getImage(), $image->getId());
@@ -131,9 +132,9 @@ class ImageController extends AbstractController
                 $imageManager->flush();
 
                 return $this->redirectToRoute('image_index');
-        /*    } catch (\Exception $e) {
+            } catch (\Exception $e) {
                 $this->addFlash('error', $e->getMessage());
-            }*/
+            }
         }
 
         return $this->render('image/edit.html.twig', [
