@@ -30,11 +30,7 @@ liip_imagine:
                     width: 120
                     height: 120
             post_processors:
-                cwebp: {
-                    metadata:
-                        - 'none',
-                    q: 70
-                }
+                cwebp: { metadata: ["none"], q: 70 }
 
         image_jpg:
             format: jpeg
@@ -54,8 +50,4 @@ liip_imagine:
                     width:  900
                     height: 600
             post_processors:
-                cwebp: {
-                    metadata:
-                      - 'none',
-                    q: 70
-                }
+                cwebp: { metadata: ["none"], q: 70 }
