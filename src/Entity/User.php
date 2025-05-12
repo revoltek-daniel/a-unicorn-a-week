@@ -37,21 +37,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", unique=true)
      */
     #[ORM\Column]
-    protected $username;
+    protected string $username;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=64)
      */
     #[ORM\Column]
-    protected $password;
+    protected string $password;
 
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max=4096)
      * @var string
      */
-    protected $plainPassword = '';
+    protected string $plainPassword = '';
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
@@ -216,7 +216,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /** @see \Serializable::unserialize() */
-    public function unserialize($serialized): void
+    public function unserialize(string $serialized): void
     {
         list (
             $this->id,
@@ -229,6 +229,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserIdentifier(): string
     {
+        // @phpstan-ignore return.type
         return $this->username;
     }
 }

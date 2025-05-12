@@ -29,8 +29,7 @@ class ImageController extends AbstractController
     #[Route('/', name: 'image_index', methods: ['GET'])]
     public function indexAction(Request $request, ImageRepository $imageManager): Response
     {
-        // $imageManager = $this->container->get('daniel.image.manager');
-        $paginatedList = $imageManager->getPaginatedList($request->query->get('page', 1), 20);
+        $paginatedList = $imageManager->getPaginatedList($request->query->getInt('page', 1), 20);
 
         return $this->render('image/index.html.twig', ['pagination' => $paginatedList]);
     }
@@ -96,11 +95,11 @@ class ImageController extends AbstractController
     /**
      * Displays a form to edit an existing image entity.
      *
-     * @param Request      $request
-     * @param Image        $image
+     * @param Request $request
+     * @param Image $image
      * @param ImageRepository $imageManager
      *
-     * @throws \Exception
+     * @return Response
      */
     #[Route('/{id}/edit', name: 'image_edit', methods: ['GET', 'POST'])]
     public function editAction(Request $request, Image $image, ImageRepository $imageManager): Response
@@ -110,7 +109,11 @@ class ImageController extends AbstractController
         $oldLogo = $image->getImage();
 
         if ($oldLogo) {
-            $logo = new File($this->getParameter('daniel.file.path') . DIRECTORY_SEPARATOR . $oldLogo);
+            $path = $this->getParameter('daniel.file.path');
+            if (is_string($path) === false) {
+                throw new \RuntimeException('The parameter "daniel.file.path" must be a string.');
+            }
+            $logo = new File($path . DIRECTORY_SEPARATOR . $oldLogo);
             $image->setImage($logo);
         }
 

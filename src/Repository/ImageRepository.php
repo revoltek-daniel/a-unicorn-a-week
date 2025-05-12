@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Class ImageManager
  *
- * @package DanielBundle\Manager
+ * @extends ServiceEntityRepository<Image>
  */
 class ImageRepository extends ServiceEntityRepository
 {
@@ -107,7 +107,7 @@ class ImageRepository extends ServiceEntityRepository
             ->save($filename);
     }
 
-    public function findAllByReverseOrder()
+    public function findAllByReverseOrder(): mixed
     {
         $qb = $this->createQueryBuilder('image');
         $qb->orderBy('image.id', 'DESC');
