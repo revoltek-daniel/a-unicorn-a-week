@@ -3,6 +3,10 @@
 {% block main %}
     <h1>Image creation</h1>
 
+    {% for error in app.flashes('error') %}
+        <span style="color:red">{{ error|trans }}</span>
+    {% endfor %}
+
     {{ form_start(form) }}
         {{ form_widget(form) }}
         <input type="submit" value="Create" />

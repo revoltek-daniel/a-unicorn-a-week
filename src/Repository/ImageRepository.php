@@ -78,7 +78,7 @@ class ImageRepository extends ServiceEntityRepository
     public function uploadNewPicture(UploadedFile $file, ?int $imageId): string
     {
         if (!in_array($file->getMimeType(), $this->allowedFiletypes)) {
-            throw new \Exception('tubemesh.user.edit.picture.invalid');
+            throw new \Exception('daniel.admin.error.picture.invalid');
         }
 
         $filepath = $this->filepath;

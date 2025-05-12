@@ -1,6 +1,9 @@
 daniel:
   admin:
     title: Admin Bereich
+    error:
+      picture:
+        invalid: Bild Format nicht erlaubt
   title: A Unicorn a Week
   nav:
     homepage: Home

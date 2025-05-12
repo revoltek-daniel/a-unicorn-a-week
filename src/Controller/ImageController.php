@@ -52,17 +52,21 @@ class ImageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            if ($data->getImage()) {
-                $filename = $imageManager->uploadNewPicture($data->getImage(), $image->getId());
+            try {
+                $data = $form->getData();
+                if ($data->getImage()) {
+                    $filename = $imageManager->uploadNewPicture($data->getImage(), $image->getId());
 
-                $imageManager->removeOldPicture($image->getImage());
-                $image->setImage($filename);
+                    $imageManager->removeOldPicture($image->getImage());
+                    $image->setImage($filename);
+                }
+
+                $imageManager->persist($image);
+
+                return $this->redirectToRoute('image_show', ['id' => $image->getId()]);
+            } catch (\Exception $e) {
+                $this->addFlash('error', $e->getMessage());
             }
-
-            $imageManager->persist($image);
-
-            return $this->redirectToRoute('image_show', ['id' => $image->getId()]);
         }
 
         return $this->render(
@@ -113,19 +117,23 @@ class ImageController extends AbstractController
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $data = $editForm->getData();
-            if ($data->getImage()) {
-                $filename = $imageManager->uploadNewPicture($data->getImage(), $image->getId());
+            try {
+                $data = $editForm->getData();
+                if ($data->getImage()) {
+                    $filename = $imageManager->uploadNewPicture($data->getImage(), $image->getId());
 
-                $imageManager->removeOldPicture($oldLogo);
-                $image->setImage($filename);
-            } else {
-                $image->setImage($oldLogo);
+                    $imageManager->removeOldPicture($oldLogo);
+                    $image->setImage($filename);
+                } else {
+                    $image->setImage($oldLogo);
+                }
+
+                $imageManager->flush();
+
+                return $this->redirectToRoute('image_index');
+            } catch (\Exception $e) {
+                $this->addFlash('error', $e->getMessage());
             }
-
-            $imageManager->flush();
-
-            return $this->redirectToRoute('image_index');
         }
 
         return $this->render('image/edit.html.twig', [
