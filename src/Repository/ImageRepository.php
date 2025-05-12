@@ -4,11 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Image;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-use Imagine\Gd\Imagine;
-use Imagine\Image\Box;
+use Imagine\Image\ImagineInterface;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -21,36 +19,24 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class ImageRepository extends ServiceEntityRepository
 {
     /**
-     * @var EntityManager
+     * @var array<string>
      */
-    protected EntityManager $entityManager;
-
-    /**
-     * @var PaginatorInterface
-     */
-    protected PaginatorInterface $paginator;
+    protected array $allowedFiletypes = ['image/jpeg', 'image/png', 'image/heic'];
 
     /**
      * @var array<string>
      */
-    protected array $allowedFiletypes = ['image/jpeg', 'image/png'];
+    protected array $nonConvertableFiletypes = ['image/jpeg', 'image/png'];
 
-    /**
-     * @var string
-     */
-    private string $filepath;
 
-    /**
-     * @param ManagerRegistry $registry
-     * @param EntityManager $entityManager
-     * @param PaginatorInterface $paginator
-     * @param string $filepath
-     */
-    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager, PaginatorInterface $paginator, string $filepath)
-    {
-        $this->entityManager = $entityManager;
-        $this->paginator = $paginator;
-        $this->filepath = $filepath;
+    public function __construct(
+        ManagerRegistry                  $registry,
+        protected EntityManagerInterface $entityManager,
+        protected PaginatorInterface     $paginator,
+        protected ImagineInterface       $imagine,
+        protected string                 $filepath,
+        protected string                 $rootPath,
+    ) {
 
         parent::__construct($registry, Image::class);
     }
@@ -78,15 +64,18 @@ class ImageRepository extends ServiceEntityRepository
     public function uploadNewPicture(UploadedFile $file, ?int $imageId): string
     {
         if (!in_array($file->getMimeType(), $this->allowedFiletypes)) {
-            throw new \Exception('daniel.admin.error.picture.invalid');
+            throw new \RuntimeException('daniel.admin.error.picture.invalid');
         }
 
-        $filepath = $this->filepath;
-        $filename = sha1(random_int(0, 50) . $imageId . random_int(0, 50) . $file->getClientOriginalName() . random_int(0, 50)) . '.' . $file->getClientOriginalExtension();
+        $filename = sha1(random_int(0, 50) . $imageId . random_int(0, 50) . $file->getClientOriginalName() . random_int(0, 50));
 
-        $file->move($filepath, $filename);
-
-        $this->resizePictures($filepath, $filename);
+        if (in_array($file->getMimeType(), $this->nonConvertableFiletypes, true) === false) {
+            $filename .= '.jpg';
+            $this->convertImage($file, $filename);
+        } else {
+            $filename .= '.' . $file->getClientOriginalExtension();
+            $file->move($this->filepath, $filename . '.' . $file->getClientOriginalExtension());
+        }
 
         return $filename;
     }
@@ -110,34 +99,13 @@ class ImageRepository extends ServiceEntityRepository
         }
     }
 
-     /**
-     * Resize picture and save thumb.
-     *
-     * @param string $filepath
-     * @param string $filename
-     *
-     * @return void
-     */
-    protected function resizePictures(string $filepath, string $filename): void
+    public function convertImage(UploadedFile $file, string $filename): void
     {
-        $fullpath = $filepath . DIRECTORY_SEPARATOR . $filename;
+        $filepath = $file->getPathname();
 
-        $thumbPath = $filepath . DIRECTORY_SEPARATOR . 'thumb';
-        if (!is_dir($thumbPath)) {
-            if (!mkdir($thumbPath) && !is_dir($thumbPath)) {
-                throw new \RuntimeException(sprintf('Directory "%s" was not created', $thumbPath));
-            }
-        }
-
-        $imagine = new Imagine();
-
-        $image = $imagine->open($fullpath);
-        $image->resize(new Box(120, 120))
-        ->save($thumbPath . DIRECTORY_SEPARATOR . $filename);
-
-        $image = $imagine->open($fullpath);
-        $image->resize(new Box(900, 600))
-        ->save($fullpath);
+        $filename = $this->rootPath . '/public/' . $this->filepath . '/' . $filename;
+        $this->imagine->open($filepath)
+            ->save($filename);
     }
 
     public function findAllByReverseOrder()

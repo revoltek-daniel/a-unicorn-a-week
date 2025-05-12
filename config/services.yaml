@@ -27,3 +27,4 @@ services:
     App\Repository\ImageRepository:
         arguments:
             $filepath: "%daniel.file.path%"
+            $rootPath: "%kernel.project_dir%"
