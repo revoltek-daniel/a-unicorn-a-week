@@ -28,11 +28,25 @@ class ImageService
 
     public function uploadNewPicture(UploadedFile $file, ?int $imageId): string
     {
-        if (!in_array($file->getMimeType(), $this->allowedFiletypes)) {
+        if (!in_array($file->getMimeType(), $this->allowedFiletypes, true)) {
             throw new \RuntimeException('daniel.admin.error.picture.invalid');
         }
 
         $filename = sha1(random_int(0, 50) . $imageId . random_int(0, 50) . $file->getClientOriginalName() . random_int(0, 50));
+
+        $exifMetadataReader = $this->imagine->getMetadataReader();
+        $exifData = $exifMetadataReader->readFile($file->getPathname());
+
+        if (
+            isset($exifData['ifd0.Orientation']) &&
+            (
+                $exifData['ifd0.Orientation'] !== 0 &&
+                $exifData['ifd0.Orientation'] !== 1 &&
+                $exifData['ifd0.Orientation'] !== 2
+            )
+        ) {
+            $file = $this->rotateImage($file, $exifData['ifd0.Orientation']);
+        }
 
         if (in_array($file->getMimeType(), $this->nonConvertableFiletypes, true) === false) {
             $filename .= '.jpg';
@@ -71,5 +85,32 @@ class ImageService
         $filename = $this->rootPath . '/public/' . $this->filepath . '/' . $filename;
         $this->imagine->open($filepath)
             ->save($filename);
+    }
+
+    private function rotateImage(UploadedFile $file, int $exifData): UploadedFile
+    {
+        $image = $this->imagine->open($file->getPathname());
+        $flip = false;
+        switch ($exifData) {
+            case 3:
+            case 4:
+                $angle = 180;
+                break;
+            case 5:
+            case 6:
+                $angle = 90;
+                break;
+            case 7:
+            case 8:
+                $angle = 270;
+                break;
+            default:
+                $angle = 0;
+        }
+
+        $image->rotate($angle);
+        $image->save($file->getPathname());
+
+        return $file;
     }
 }
