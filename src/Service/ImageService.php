@@ -90,7 +90,6 @@ class ImageService
     private function rotateImage(UploadedFile $file, int $exifData): UploadedFile
     {
         $image = $this->imagine->open($file->getPathname());
-        $flip = false;
         switch ($exifData) {
             case 3:
             case 4:

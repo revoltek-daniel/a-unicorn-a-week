@@ -55,7 +55,7 @@ class Image
      *      min = 0,
      *      max = 250,
      * )
-     * @var string
+     * @var string|null
      * @ORM\Column(type="string")
      */
     #[Assert\Length(min: 0, max: 250)]
@@ -74,7 +74,7 @@ class Image
      * @ORM\Column(type="datetime", nullable=true)
      */
     #[ORM\Column(type: 'datetime', nullable: true)]
-    protected ?\DateTime $created;
+    protected \DateTime $created;
 
     /**
      * Image constructor.
@@ -87,9 +87,9 @@ class Image
     /**
      * Get Id.
      *
-     * @return int
+     * @return int|null
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -99,7 +99,7 @@ class Image
      *
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -109,7 +109,7 @@ class Image
      *
      * @return Image
      */
-    public function setTitle($title)
+    public function setTitle(string $title): Image
     {
         $this->title = $title;
 
@@ -131,7 +131,7 @@ class Image
      *
      * @return Image
      */
-    public function setImage($image)
+    public function setImage(mixed $image): Image
     {
         $this->image = $image;
 
@@ -149,7 +149,7 @@ class Image
     }
 
     /**
-     * @param string $description
+     * @param string|null $description
      *
      * @return Image
      */
@@ -165,7 +165,7 @@ class Image
      *
      * @return int
      */
-    public function getSorting()
+    public function getSorting(): int
     {
         return $this->sorting;
     }
@@ -175,7 +175,7 @@ class Image
      *
      * @return Image
      */
-    public function setSorting($sorting)
+    public function setSorting(int $sorting): Image
     {
         $this->sorting = $sorting;
 
@@ -187,22 +187,8 @@ class Image
      *
      * @return \DateTime
      */
-    public function getCreated()
+    public function getCreated(): \DateTime
     {
         return $this->created;
-    }
-
-    /**
-     * Set Created.
-     *
-     * @param \DateTime $created
-     *
-     * @return Image
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
     }
 }

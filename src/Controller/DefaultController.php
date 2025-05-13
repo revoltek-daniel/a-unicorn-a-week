@@ -17,6 +17,8 @@ class DefaultController extends AbstractController
 {
     /**
      * @param ImageRepository $imageRepository
+     *
+     * @return Response
      */
     #[Route('/', name: 'index', methods: ['GET'])]
     public function indexAction(ImageRepository $imageRepository): Response
@@ -37,8 +39,10 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @param Image        $image
+     * @param Image $image
      * @param ImageRepository $imageRepository
+     *
+     * @return Response
      */
     #[Route('/image/{id}/{slug}', name: 'image_detail', methods: ['GET'])]
     public function showAction(Image $image, ImageRepository $imageRepository): Response
@@ -60,7 +64,7 @@ class DefaultController extends AbstractController
      * @return Response
      */
     #[Route('/rss', name: 'rss', methods: ['GET'])]
-    public function rssAction(ImageRepository $imageRepository)
+    public function rssAction(ImageRepository $imageRepository): Response
     {
         $images = $imageRepository->findAllByReverseOrder();
 
