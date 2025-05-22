@@ -46,6 +46,7 @@ class ImageType extends AbstractType
             'description',
             TextareaType::class,
             [
+                'label' => 'Alternativtext',
                 'required' => false,
             ]
         );
