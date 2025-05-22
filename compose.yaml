@@ -3,7 +3,6 @@ services:
     image: mysql:8.0
     cap_add:
       - SYS_NICE
-    restart: always
     environment:
       - MYSQL_DATABASE=app
       - MYSQL_ROOT_PASSWORD=test
