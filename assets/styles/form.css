@@ -16,6 +16,7 @@ form label {
 
 form input[type="text"],
 form input[type="file"],
+form input[type="password"],
 form textarea,
 form select {
     width: 100%;
@@ -30,6 +31,7 @@ form select {
 
 form input[type="text"]:focus,
 form input[type="file"]:focus,
+form input[type="password"]:focus,
 form textarea:focus,
 form select:focus {
     border: 1.5px solid #7abcff;
@@ -45,4 +47,20 @@ form .form-error {
     color: #d00;
     font-size: 0.95em;
     margin-bottom: 10px;
+}
+
+.btn-delete {
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 18px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 10px;
+}
+.btn-delete:hover,
+.btn-delete:focus {
+    background: #c0392b;
 }
