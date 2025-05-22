@@ -5,6 +5,8 @@
         <h1>{{ image.title }}</h1>
 
         <picture>
+            <source srcset="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('image_small_webp') }}" type="image/webp" media="(max-width: 600px)">
+            <source srcset="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('image_small_jpg') }}" type="image/jpeg" media="(max-width: 600px)">
             <source srcset="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('image_webp') }}" type="image/webp">
             <source srcset="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('image_jpg') }}" type="image/jpeg">
             <img src="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('image_jpg') }}" width="900" height="600" alt="{{ image.title }}">

@@ -51,3 +51,22 @@ liip_imagine:
                     height: 600
             post_processors:
                 cwebp: { metadata: ["none"], q: 70 }
+        image_small_jpg:
+            format: jpeg
+            quality: 80
+            filters:
+                fixed:
+                    width:  600
+                    height: 400
+            post_processors:
+                jpegoptim: { strip_all: true, max: 80, progressive: true }
+
+        image_small_webp:
+            format: webp
+            quality: 100
+            filters:
+                fixed:
+                    width:  600
+                    height: 400
+            post_processors:
+                cwebp: { metadata: ["none"], q: 70 }

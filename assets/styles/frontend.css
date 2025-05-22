@@ -61,6 +61,14 @@ ul {
     background: #1c5d8c;
     text-decoration: none;
 }
+
+img, picture {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
 @media (max-width: 600px) {
     .container {
         padding: 10px;
