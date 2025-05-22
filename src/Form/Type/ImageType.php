@@ -48,6 +48,10 @@ class ImageType extends AbstractType
             [
                 'label' => 'Alternativtext',
                 'required' => false,
+                'attr' => [
+                    'rows' => 5,
+                    'cols' => 50,
+                ],
             ]
         );
     }

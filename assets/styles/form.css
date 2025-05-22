@@ -1,0 +1,48 @@
+form {
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #444;
+}
+
+form input[type="text"],
+form input[type="file"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    background: #fafafa;
+    transition: border 0.2s;
+}
+
+form input[type="text"]:focus,
+form input[type="file"]:focus,
+form textarea:focus,
+form select:focus {
+    border: 1.5px solid #7abcff;
+    outline: none;
+    background: #fff;
+}
+
+form input[type="submit"] {
+    margin-top: 10px;
+}
+
+form .form-error {
+    color: #d00;
+    font-size: 0.95em;
+    margin-bottom: 10px;
+}
