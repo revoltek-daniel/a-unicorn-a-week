@@ -1,6 +1,4 @@
 *{
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
@@ -44,9 +42,6 @@ input[type="button"] {
     text-shadow: 0 1px 0 #fff;
     color: #666;
     text-decoration: none;
-    vertical-align: middle;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     display: inline-block;
     *display: inline; /*IE ONLY*/
@@ -203,19 +198,16 @@ input[type="button"]:hover {
 /* arrows */
 /* arrow down */
 .menu li.has-menu span.arrow {
-    border-color-top: #ccc;
     border-color: #ccc transparent transparent transparent;
 }
 
 /* arrow left */
 .menu li li.has-menu span.arrow, .menu.vertical li.has-menu span.arrow {
-    border-color-left: #ccc;
     border-color: transparent transparent transparent #ccc;
 }
 
 /* arrow right */
 .menu.vertical.right li.has-menu span.arrow {
-    border-color-right: #ccc;
     border-color: transparent #ccc transparent transparent;
 }
 
