@@ -1,0 +1,72 @@
+/* assets/styles/default.css */
+body {
+    font-family: system-ui, sans-serif;
+    background: #f7f7f9;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+h1, h2, h3 {
+    color: #2c3e50;
+    margin-top: 0;
+}
+
+a {
+    color: #2980b9;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+ul {
+    padding-left: 20px;
+}
+.control {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin: 24px 0 0 0;
+}
+
+.control .btn,
+.control a {
+    background: #2980b9;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 1em;
+    border: none;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 4px rgba(41,128,185,0.08);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.control .btn:hover,
+.control a:hover {
+    background: #1c5d8c;
+    text-decoration: none;
+}
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+        margin: 10px;
+    }
+    h1 {
+        font-size: 1.5em;
+    }
+}
