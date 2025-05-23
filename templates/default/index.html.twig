@@ -2,7 +2,7 @@
 
 {% block main %}
     {% if image %}
-        <div id="picture-{{ image.id }}">
+        <div id="picture-{{ image.id }}" class="picture">
             <h1>{{ image.title }}</h1>
             <picture>
                 <source srcset="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('image_small_webp') }}" type="image/webp" media="(max-width: 600px)">
