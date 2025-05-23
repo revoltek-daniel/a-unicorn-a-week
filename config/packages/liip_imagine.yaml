@@ -36,9 +36,9 @@ liip_imagine:
             format: jpeg
             quality: 80
             filters:
-                fixed:
-                    width:  900
-                    height: 600
+                thumbnail:
+                    size: [900, 600]
+                    mode: inbound
             post_processors:
                 jpegoptim: { strip_all: true, max: 80, progressive: true }
 
@@ -46,18 +46,18 @@ liip_imagine:
             format: webp
             quality: 100
             filters:
-                fixed:
-                    width:  900
-                    height: 600
+                thumbnail:
+                    size: [900, 600]
+                    mode: inbound
             post_processors:
                 cwebp: { metadata: ["none"], q: 70 }
         image_small_jpg:
             format: jpeg
             quality: 80
             filters:
-                fixed:
-                    width:  600
-                    height: 400
+                thumbnail:
+                    size: [900, 600]
+                    mode: inbound
             post_processors:
                 jpegoptim: { strip_all: true, max: 80, progressive: true }
 
@@ -65,8 +65,8 @@ liip_imagine:
             format: webp
             quality: 100
             filters:
-                fixed:
-                    width:  600
-                    height: 400
+                thumbnail:
+                    size: [900, 600]
+                    mode: inbound
             post_processors:
                 cwebp: { metadata: ["none"], q: 70 }
