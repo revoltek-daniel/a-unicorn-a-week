@@ -19,12 +19,12 @@
 
     <div class="control">
         {% if before %}
-            <a href="{{ path('image_detail',  { 'id': before.id, 'slug': before.title|slug }) }}" class="btn"><i class="fa fa-caret-left"></i> Älterer Eintrag</a>
+            <a href="{{ path('image_detail',  { 'id': before.id, 'slug': before.title|slug }) }}" class="btn btn-before">{{ ux_icon('mingcute:left-fill', {width: 20}) }} Älterer Eintrag</a>
         {% endif %}
 
-        <a href="{{ path('image_overview') }}">Overview</a>
+        <a href="{{ path('image_overview') }}" class="btn btn-overview">Overview</a>
         {% if next %}
-            <a href="{{ path('image_detail',  { 'id': next.id, 'slug': next.title|slug }) }}" class="btn">Nächster Eintrag <i class="fa fa-caret-right"></i></a>
+            <a href="{{ path('image_detail',  { 'id': next.id, 'slug': next.title|slug }) }}" class="btn btn-next">Nächster Eintrag {{ ux_icon('mingcute:right-fill', {width: 20}) }}</a>
         {% endif %}
 
     </div>

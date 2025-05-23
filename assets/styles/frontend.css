@@ -42,15 +42,11 @@ ul {
 
 .control .btn,
 .control a {
-    background: #2980b9;
-    color: #fff;
     padding: 8px 18px;
     border-radius: 4px;
     text-decoration: none;
     font-size: 1em;
-    border: none;
     transition: background 0.2s, box-shadow 0.2s;
-    box-shadow: 0 1px 4px rgba(41,128,185,0.08);
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -58,10 +54,39 @@ ul {
 
 .control .btn:hover,
 .control a:hover {
-    background: #1c5d8c;
     text-decoration: none;
 }
 
+.btn-before {
+    background: linear-gradient(90deg, #ff6fd8 0%, #38fff8 100%);
+    color: #fff;
+    box-shadow: 0 2px 12px rgba(255,111,216,0.18);
+    border: none;
+}
+.btn-before:hover {
+    background: linear-gradient(90deg, #ff3cac 0%, #78f5ff 100%);
+}
+
+.btn-next {
+    background: linear-gradient(90deg, #ff6fd8 0%, #38fff8 100%);
+    color: #fff;
+    box-shadow: 0 2px 12px rgba(255,111,216,0.18);
+    border: none;
+}
+.btn-next:hover {
+    background: linear-gradient(90deg, #78f5ff 0%, #ff3cac 100%);
+}
+
+.btn-overview {
+    background: linear-gradient(90deg, #ffe156 0%, #ff6fd8 100%);
+    color: #fff;
+    box-shadow: 0 2px 12px rgba(255,225,86,0.18);
+    border: none;
+    font-weight: bold;
+}
+.btn-overview:hover {
+    background: linear-gradient(90deg, #ffd600 0%, #ff3cac 100%);
+}
 img, picture {
     max-width: 100%;
     height: auto;
