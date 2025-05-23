@@ -124,3 +124,47 @@ img, picture {
         gap: 10px;
     }
 }
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 28px;
+    margin: 36px 0 0 0;
+}
+
+.image-card {
+    background: rgba(255,255,255,0.85);
+    border-radius: 18px;
+    box-shadow: 0 4px 16px rgba(255,111,216,0.10);
+    border: 2px solid #ffe156;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    transition: box-shadow 0.2s, transform 0.15s;
+    overflow: hidden;
+    padding: 12px 8px 16px 8px;
+    position: relative;
+}
+
+.image-card:hover {
+    box-shadow: 0 8px 32px rgba(255,111,216,0.18);
+    transform: translateY(-4px) scale(1.03) rotate(-1deg);
+    border-color: #ff6fd8;
+}
+
+.image-card img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(252,177,226,0.12);
+    border: 1.5px solid #b5e8f7;
+    background: #fff;
+}
+
+.overview-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 18px;
+}
