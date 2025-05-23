@@ -1,105 +1,126 @@
-/* assets/styles/default.css */
 body {
-    font-family: system-ui, sans-serif;
-    background: #f7f7f9;
-    color: #222;
+    font-family: 'Quicksand', system-ui, sans-serif;
+    background: linear-gradient(135deg, #fcb1e2 0%, #b5e8f7 100%);
+    color: #333;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
 }
 
 .container {
     max-width: 900px;
-    margin: 30px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin: 40px auto;
+    padding: 30px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(252,177,226,0.18), 0 1.5px 8px rgba(181,232,247,0.10);
+    border: 2px dashed #ffe156;
+    position: relative;
 }
 
 h1, h2, h3 {
-    color: #2c3e50;
+    color: #ff6fd8;
     margin-top: 0;
+    font-family: 'Pacifico', cursive, sans-serif;
+    letter-spacing: 1px;
 }
 
 a {
-    color: #2980b9;
+    color: #38fff8;
     text-decoration: none;
+    transition: color 0.2s;
 }
 
 a:hover {
-    text-decoration: underline;
+    color: #ff6fd8;
+    text-decoration: underline wavy #ffe156;
 }
 
 ul {
-    padding-left: 20px;
+    padding-left: 24px;
 }
+
 .control {
     display: flex;
-    gap: 12px;
+    gap: 18px;
     justify-content: center;
-    margin: 24px 0 0 0;
+    margin: 32px 0 0 0;
 }
 
 .control .btn,
 .control a {
-    padding: 8px 18px;
-    border-radius: 4px;
+    padding: 12px 28px;
+    border-radius: 24px;
     text-decoration: none;
-    font-size: 1em;
-    transition: background 0.2s, box-shadow 0.2s;
+    font-size: 1.1em;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 10px;
+    box-shadow: 0 4px 16px rgba(255,111,216,0.10);
+    border: none;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
 }
 
 .control .btn:hover,
 .control a:hover {
+    transform: translateY(-2px) scale(1.04) rotate(-2deg);
+    box-shadow: 0 8px 24px rgba(255,111,216,0.18);
     text-decoration: none;
 }
 
 .btn-before {
     background: linear-gradient(90deg, #ff6fd8 0%, #38fff8 100%);
     color: #fff;
-    box-shadow: 0 2px 12px rgba(255,111,216,0.18);
-    border: none;
 }
 .btn-before:hover {
     background: linear-gradient(90deg, #ff3cac 0%, #78f5ff 100%);
+    color: #fff;
 }
 
 .btn-next {
-    background: linear-gradient(90deg, #ff6fd8 0%, #38fff8 100%);
+    background: linear-gradient(90deg, #38fff8 0%, #ff6fd8 100%);
     color: #fff;
-    box-shadow: 0 2px 12px rgba(255,111,216,0.18);
-    border: none;
 }
 .btn-next:hover {
     background: linear-gradient(90deg, #78f5ff 0%, #ff3cac 100%);
+    color: #fff;
 }
 
 .btn-overview {
     background: linear-gradient(90deg, #ffe156 0%, #ff6fd8 100%);
     color: #fff;
-    box-shadow: 0 2px 12px rgba(255,225,86,0.18);
-    border: none;
-    font-weight: bold;
 }
 .btn-overview:hover {
     background: linear-gradient(90deg, #ffd600 0%, #ff3cac 100%);
+    color: #fff;
 }
+
 img, picture {
     max-width: 100%;
     height: auto;
     display: block;
     margin: 0 auto;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(255,111,216,0.10);
+    border: 2px solid #ffe156;
 }
 
 @media (max-width: 600px) {
     .container {
-        padding: 10px;
+        padding: 12px;
         margin: 10px;
+        border-radius: 12px;
     }
     h1 {
-        font-size: 1.5em;
+        font-size: 1.3em;
+    }
+    .control {
+        flex-direction: column;
+        gap: 10px;
     }
 }
