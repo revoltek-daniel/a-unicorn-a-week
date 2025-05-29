@@ -23,6 +23,7 @@ security:
                 # When the user tries to access a protected page, they are redirected here
                 login_path: security_login
                 enable_csrf: true
+                default_target_path: image_index
 
             logout:
                 # The route name the user can go to in order to logout
