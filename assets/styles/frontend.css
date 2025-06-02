@@ -109,11 +109,12 @@ ul {
     color: #fff;
 }
 
-img, picture {
-    max-width: 100%;
+.picture img {
+    max-width: 600px;
+    width: 100%;
     height: auto;
-    display: block;
     margin: 0 auto;
+    display: block;
     border-radius: 18px;
     box-shadow: 0 4px 24px rgba(255,111,216,0.10);
     border: 2px solid #ffe156;
