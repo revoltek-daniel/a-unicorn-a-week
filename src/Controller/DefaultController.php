@@ -25,7 +25,7 @@ class DefaultController extends AbstractController
     {
         $image = $imageRepository->getLastEntry();
 
-        if ($image instanceof Image) {
+        if ($image instanceof Image && $image->getId() !== null) {
             $beforeEntry = $imageRepository->getBeforeEntry($image->getId());
         }
 
@@ -47,6 +47,9 @@ class DefaultController extends AbstractController
     #[Route('/image/{id}/{slug}', name: 'image_detail', methods: ['GET'])]
     public function showAction(Image $image, ImageRepository $imageRepository): Response
     {
+        if ($image->getId() === null) {
+            throw $this->createNotFoundException();
+        }
         $beforeEntry = $imageRepository->getBeforeEntry($image->getId());
         $nextEntry = $imageRepository->getNextEntry($image->getId());
 
