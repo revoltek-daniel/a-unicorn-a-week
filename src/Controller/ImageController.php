@@ -30,6 +30,8 @@ class ImageController extends AbstractController
         'image_middle_jpg',
         'image_webp',
         'image_jpg',
+        'thumb',
+        'thumb_webp',
     ];
 
     /**
