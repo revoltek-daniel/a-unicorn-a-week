@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Image;
 use App\Repository\ImageRepository;
 use App\Service\ImageService;
+use Liip\ImagineBundle\Message\WarmupCache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 /**
@@ -21,6 +23,15 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/admin/image')]
 class ImageController extends AbstractController
 {
+    protected const array DEFAULT_IMAGINE_FILTER = [
+        'image_small_webp',
+        'image_small_jpg',
+        'image_middle_webp',
+        'image_middle_jpg',
+        'image_webp',
+        'image_jpg',
+    ];
+
     /**
      * Lists all image entities.
      *
@@ -42,12 +53,17 @@ class ImageController extends AbstractController
      * @param Request $request
      * @param ImageRepository $imageRepository
      * @param ImageService $imageService
+     * @param MessageBusInterface $messageBus
      *
      * @return Response
      */
     #[Route('/new', name: 'image_new', methods: ['GET', 'POST'])]
-    public function newAction(Request $request, ImageRepository $imageRepository, ImageService $imageService): Response
-    {
+    public function newAction(
+        Request $request,
+        ImageRepository $imageRepository,
+        ImageService $imageService,
+        MessageBusInterface $messageBus
+    ): Response {
         $image = new Image();
         $form = $this->createForm(\App\Form\Type\ImageType::class, $image);
         $form->handleRequest($request);
@@ -63,6 +79,13 @@ class ImageController extends AbstractController
                 }
 
                 $imageRepository->persist($image);
+
+                $messageBus->dispatch(
+                    new WarmupCache(
+                        'uploads/images/' . $image->getImage(),
+                        self::DEFAULT_IMAGINE_FILTER
+                    )
+                );
 
                 return $this->redirectToRoute('image_show', ['id' => $image->getId()]);
             } catch (\Exception $e) {
@@ -100,6 +123,7 @@ class ImageController extends AbstractController
      * @param Image $image
      * @param ImageRepository $imageRepository
      * @param ImageService $imageService
+     * @param MessageBusInterface $messageBus
      *
      * @return Response
      */
@@ -108,7 +132,8 @@ class ImageController extends AbstractController
         Request $request,
         Image $image,
         ImageRepository $imageRepository,
-        ImageService $imageService
+        ImageService $imageService,
+        MessageBusInterface $messageBus
     ): Response {
         $deleteForm = $this->createDeleteForm($image);
 
@@ -140,10 +165,17 @@ class ImageController extends AbstractController
                 }
 
                 $imageRepository->flush();
+                $messageBus->dispatch(
+                    new WarmupCache(
+                        'uploads/images/' . $image->getImage(),
+                        self::DEFAULT_IMAGINE_FILTER
+                    )
+                );
 
                 return $this->redirectToRoute('image_index');
             } catch (\Exception $e) {
                 $this->addFlash('error', $e->getMessage());
+                return $this->redirectToRoute('image_edit', ['id' => $image->getId()]);
             }
         }
 
