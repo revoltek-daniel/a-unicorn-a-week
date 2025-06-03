@@ -70,3 +70,22 @@ liip_imagine:
                     mode: inbound
             post_processors:
                 cwebp: { metadata: ["none"], q: 70 }
+        image_middle_jpg:
+            format: jpeg
+            quality: 80
+            filters:
+                thumbnail:
+                    size: [546, 819]
+                    mode: inbound
+            post_processors:
+                jpegoptim: { strip_all: true, max: 80, progressive: true }
+
+        image_middle_webp:
+            format: webp
+            quality: 100
+            filters:
+                thumbnail:
+                    size: [546, 819]
+                    mode: inbound
+            post_processors:
+                cwebp: { metadata: ["none"], q: 70 }
