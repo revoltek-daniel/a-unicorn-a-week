@@ -12,15 +12,6 @@
         {% endblock %}
     </head>
     <body>
-
-     {% if is_granted('ROLE_ADMIN') %}
-        <div class="header">
-            {% block header %}
-                {{ include('inc/mainNavigation.html.twig') }}
-            {% endblock %}
-        </div>
-     {% endif %}
-
         <div class="container">
             {% block main %}
             {% endblock %}
