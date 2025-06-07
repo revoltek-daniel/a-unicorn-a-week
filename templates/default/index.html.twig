@@ -11,7 +11,7 @@
                 <source srcset="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('image_middle_jpg') }}" type="image/jpeg" media="(max-width: 600px)">
                 <source srcset="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('image_webp') }}" type="image/webp">
                 <source srcset="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('image_jpg') }}" type="image/jpeg">
-                <img fetchpriority="high"  src="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('image_jpg') }}" width="600" height="800" alt="{{ image.title }}" title="{{ image.title }}">
+                <img fetchpriority="high"  src="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('image_jpg') }}" width="600" height="800" alt="{{ image.description }}" title="{{ image.title }}">
             </picture>
 
             {% if image.description %}

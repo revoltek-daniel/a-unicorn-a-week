@@ -10,7 +10,7 @@
             <picture>
                 <source srcset="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('thumb_webp') }}" type="image/webp">
                 <source srcset="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('thumb') }}" type="image/jpeg">
-                <img src="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('thumb') }}" width="120" height="120" alt="{{ image.title }}" title="{{ image.title }}">
+                <img src="{{ asset('uploads/images/' ~ image.image ) | imagine_filter('thumb') }}" width="120" height="120" alt="{{ image.description }}" title="{{ image.description }}">
             </picture>
         </a>
     {% endfor %}
