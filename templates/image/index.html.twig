@@ -4,13 +4,15 @@
       <table>
         <tr>
             <th{% if pagination.isSorted('e.active') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'e.active') }}</th>
+            <th>Erstellt am</th>
             <th>Edit</th>
         </tr>
 
         {% for image in pagination %}
             <tr {% if loop.index is odd %}class="color"{% endif %}>
                 <td>{{ image.title }}</td>
-                              <td>
+                <td>{{ image.created|date('d.m.Y') }}</td>
+                <td>
                     <a href="{{ path('image_edit', {'id': image.id}) }}" >
                         <i class="fa fa-pencil-square-o"></i> Edit
                     </a>
