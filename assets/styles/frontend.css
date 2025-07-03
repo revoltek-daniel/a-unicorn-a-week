@@ -160,8 +160,16 @@ ul {
 .image-card:hover {
     box-shadow: 0 8px 32px rgba(255,111,216,0.18);
     transform: translateY(-4px) scale(1.03) rotate(-1deg);
-    border-color: #ff6fd8;
 }
+
+.image-card:nth-child(8n+1):hover { border-color: #FF0000; } /* Rot */
+.image-card:nth-child(8n+2):hover { border-color: #FF7F00; } /* Orange */
+.image-card:nth-child(8n+3):hover { border-color: #FFFF00; } /* Gelb */
+.image-card:nth-child(8n+4):hover { border-color: #00FF00; } /* Grün */
+.image-card:nth-child(8n+5):hover { border-color: #0000FF; } /* Blau */
+.image-card:nth-child(8n+6):hover { border-color: #4B0082; } /* Indigo */
+.image-card:nth-child(8n+7):hover { border-color: #8F00FF; } /* Violett */
+.image-card:nth-child(8n+8):hover { border-color: #ff6fd8; } /* Violett */
 
 .image-card img {
     width: 120px;
