@@ -29,4 +29,11 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+    '@fontsource/pacifico' => [
+        'version' => '5.2.6',
+    ],
+    '@fontsource/pacifico/index.min.css' => [
+        'version' => '5.2.6',
+        'type' => 'css',
+    ],
 ];
