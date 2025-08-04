@@ -56,6 +56,15 @@ input[type="button"] {
     background: linear-gradient(top, rgba(252, 252, 252, 1) 0%, rgba(224, 224, 224, 1) 100%); /* W3C */
 }
 
+.sorted {
+    font-weight: bold;         /* Fettschrift, um die sortierte Spalte hervorzuheben */
+    border-bottom: 2px solid #4096ee; /* Optional: Unterstreichen der Spalte */
+}
+
+.color {
+    background-color: #f6f6f6; /* Heller Grauton für dezente Hervorhebung */
+}
+
 button:active,
 a.btn:active,
 a.btn:visited:active,
