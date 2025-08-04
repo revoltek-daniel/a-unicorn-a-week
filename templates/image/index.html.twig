@@ -4,8 +4,8 @@
       <table>
         <tr>
             <th>Aktiv</th>
-            <th{% if pagination.isSorted('e.active') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'e.active') }}</th>
-            <th>Erstellt am</th>
+            <th{% if pagination.isSorted('image.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'image.title') }}</th>
+            <th{% if pagination.isSorted('image.createdAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Erstellt am', 'image.created') }}</th>
             <th>Edit</th>
         </tr>
 
