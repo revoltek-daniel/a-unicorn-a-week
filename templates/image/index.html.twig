@@ -3,6 +3,7 @@
 {% block main %}
       <table>
         <tr>
+            <th>Aktiv</th>
             <th{% if pagination.isSorted('e.active') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'e.active') }}</th>
             <th>Erstellt am</th>
             <th>Edit</th>
@@ -10,6 +11,7 @@
 
         {% for image in pagination %}
             <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{% if image.activeFrom %}ab {{ image.activeFrom|date('d.m.Y H:i') }} Uhr{% else %}{% if image.active %}Ja{% else %}Nein{% endif %}{% endif %}</td>
                 <td>{{ image.title }}</td>
                 <td>{{ image.created|date('d.m.Y') }}</td>
                 <td>

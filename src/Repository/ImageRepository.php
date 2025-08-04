@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Image;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -47,8 +48,19 @@ class ImageRepository extends ServiceEntityRepository
     public function findAllByReverseOrder(): mixed
     {
         $qb = $this->createQueryBuilder('image');
+        $this->addActiveConditions($qb);
         $qb->orderBy('image.id', 'DESC');
 
+        return $qb->getQuery()->execute();
+    }
+
+    /**
+     * @return Image[]
+     */
+    public function findAllActive(): array
+    {
+        $qb = $this->createQueryBuilder('image');
+        $this->addActiveConditions($qb);
         return $qb->getQuery()->execute();
     }
 
@@ -56,9 +68,9 @@ class ImageRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('image');
 
+        $this->addActiveConditions($qb);
         $qb->orderBy('image.id', 'DESC');
         $qb->setMaxResults(1);
-
 
         return $qb->getQuery()->getOneOrNullResult();
     }
@@ -66,9 +78,11 @@ class ImageRepository extends ServiceEntityRepository
     public function getNextEntry(int $id): ?Image
     {
         $qb = $this->createQueryBuilder('image');
+
         $qb->where('image.id > :id')
             ->setParameter('id', $id);
 
+        $this->addActiveConditions($qb);
         $qb->orderBy('image.id', 'ASC');
         $qb->setMaxResults(1);
 
@@ -81,6 +95,7 @@ class ImageRepository extends ServiceEntityRepository
         $qb->where('image.id < :id')
             ->setParameter('id', $id);
 
+        $this->addActiveConditions($qb);
         $qb->orderBy('image.id', 'DESC');
         $qb->setMaxResults(1);
 
@@ -102,5 +117,22 @@ class ImageRepository extends ServiceEntityRepository
     public function flush(): void
     {
         $this->entityManager->flush();
+    }
+
+    protected function addActiveConditions(QueryBuilder $builder): void
+    {
+        $expr = $builder->expr();
+        $builder->andWhere(
+            $expr->orX(
+                $expr->andX(
+                    $expr->eq('image.active', ':active'),
+                    $expr->isNull('image.activeFrom')
+                ),
+                $expr->lte('image.activeFrom', ':activeFrom')
+            )
+        );
+
+        $builder->setParameter('active', true);
+        $builder->setParameter('activeFrom', new \DateTime());
     }
 }

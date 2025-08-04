@@ -21,10 +21,10 @@
             </description>
 
               <link>{{ url('image_detail',  { 'id': image.id, 'slug': image.title|slug }) }}</link>
-              <thumb>{{ absolute_url(asset('uploads/images/' ~ image.image )| imagine_filter('thumb_jpg')) }}</thumb>
+              <thumb>{{ absolute_url(asset('uploads/images/' ~ image.image )| imagine_filter('thumb')) }}</thumb>
               <image>{{ absolute_url(asset('uploads/images/' ~ image.image )| imagine_filter('image_jpg')) }}</image>
 
-              <pubDate> {{ image.created|date('r e', 'GMT') }}</pubDate>
+              <pubDate>{% if image.activeFrom %}{{ image.activeFrom|date('r e', 'GMT') }}{% else %}{{ image.created|date('r e', 'GMT') }}{% endif %}</pubDate>
             </item>
 
     {% endfor %}

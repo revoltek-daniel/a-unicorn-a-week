@@ -47,7 +47,11 @@ class DefaultController extends AbstractController
     #[Route('/image/{id}/{slug}', name: 'image_detail', methods: ['GET'])]
     public function showAction(Image $image, ImageRepository $imageRepository): Response
     {
-        if ($image->getId() === null) {
+        if (
+            $image->getId() === null ||
+            ($image->isActive() === false && $image->getActiveFrom() === null) ||
+            ($image->getActiveFrom() instanceof \DateTime && $image->getActiveFrom() > new \DateTime())
+        ) {
             throw $this->createNotFoundException();
         }
         $beforeEntry = $imageRepository->getBeforeEntry($image->getId());
@@ -86,7 +90,7 @@ class DefaultController extends AbstractController
     #[Route('/overview', name: 'image_overview', methods: ['GET'])]
     public function overviewAction(ImageRepository $imageRepository): Response
     {
-        $images = $imageRepository->findAll();
+        $images = $imageRepository->findAllActive();
 
         return $this->render('default/overview.html.twig', [
             'images' => $images,

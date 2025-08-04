@@ -76,6 +76,12 @@ class Image
     #[ORM\Column(type: 'datetime', nullable: true)]
     protected \DateTime $created;
 
+    #[ORM\Column]
+    private bool $active = true;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTime $activeFrom = null;
+
     /**
      * Image constructor.
      */
@@ -190,5 +196,29 @@ class Image
     public function getCreated(): \DateTime
     {
         return $this->created;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): static
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    public function getActiveFrom(): ?\DateTime
+    {
+        return $this->activeFrom;
+    }
+
+    public function setActiveFrom(?\DateTime $activeFrom): static
+    {
+        $this->activeFrom = $activeFrom;
+
+        return $this;
     }
 }
