@@ -1,7 +1,7 @@
 {% extends 'backendBaseLayout.html.twig' %}
 
 {% block main %}
-    <h1>Image edit</h1>
+    <h1>Bild bearbeiten</h1>
 
     {% for error in app.flashes('error') %}
         <span style="color:red">{{ error|trans }}</span>
@@ -14,7 +14,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('image_index') }}">Back to the list</a>
+            <a href="{{ path('image_index') }}">Zurück zur übersicht</a>
         </li>
     </ul>
 

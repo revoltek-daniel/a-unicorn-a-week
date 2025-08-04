@@ -1,7 +1,7 @@
 {% extends 'backendBaseLayout.html.twig' %}
 
 {% block main %}
-    <h1>Image creation</h1>
+    <h1>Neues Bild erstellen</h1>
 
     {% for error in app.flashes('error') %}
         <span style="color:red">{{ error|trans }}</span>
@@ -9,12 +9,12 @@
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input type="submit" value="Erstellen" />
     {{ form_end(form) }}
 
     <ul>
         <li>
-            <a href="{{ path('image_index') }}">Back to the list</a>
+            <a href="{{ path('image_index') }}">Zurück zur übersicht</a>
         </li>
     </ul>
 {% endblock %}
