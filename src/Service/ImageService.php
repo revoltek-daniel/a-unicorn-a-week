@@ -90,10 +90,11 @@ class ImageService
             ->save($filename);
     }
 
-    private function rotateImage(UploadedFile $file, int $exifData): UploadedFile
+    private function rotateImage(UploadedFile $file, int $orientation): UploadedFile
     {
         $image = $this->imagine->open($file->getPathname());
-        switch ($exifData) {
+
+        switch ($orientation) {
             case 3:
             case 4:
                 $angle = 180;
