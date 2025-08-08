@@ -37,7 +37,7 @@ class UserType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'danielbundle_user';
+        return 'unicorn_user';
     }
 
     protected function addPassword(FormBuilderInterface $builder): void
