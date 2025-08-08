@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Controller;
+namespace App\Tests\Functional\Controller;
 
 use App\Tests\Factory\ImageFactory;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Controller;
+namespace App\Tests\Functional\Controller;
 
 use App\Tests\Factory\ImageFactory;
 use App\Tests\Factory\UserFactory;
@@ -60,7 +60,7 @@ class ImageControllerTest extends WebTestCase
             ->assertSee('Neues Bild erstellen')
             ->fillField('unicorn_image[title]', 'new_image')
             ->fillField('unicorn_image[description]', 'new_description')
-            ->fillField('unicorn_image[image]', __DIR__ . '/../fixtures/images/testBild.jpeg')
+            ->fillField('unicorn_image[image]', __DIR__ . '/../../fixtures/images/testBild.jpeg')
             ->fillField('unicorn_image[active]', '1')
             ->interceptRedirects()
             ->click('Erstellen')
@@ -85,7 +85,7 @@ class ImageControllerTest extends WebTestCase
             ->assertSee('Bild bearbeiten')
             ->fillField('unicorn_image[title]', 'new_image')
             ->fillField('unicorn_image[description]', 'new_description')
-            ->fillField('unicorn_image[image]', __DIR__ . '/../fixtures/images/testBild.jpeg')
+            ->fillField('unicorn_image[image]', __DIR__ . '/../../fixtures/images/testBild.jpeg')
             ->fillField('unicorn_image[active]', '1')
             ->interceptRedirects()
             ->click('Edit')
