@@ -37,7 +37,7 @@ jobs:
         run: bin/console importmap:install; bin/console asset-map:compile
 
       - name: Create folder
-        run: mkdir -p var/data
+        run: mkdir -p var/data public/uploads/images
 
       - name: Run Unit Tests
         run: vendor/bin/phpunit
