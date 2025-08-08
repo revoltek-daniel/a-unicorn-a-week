@@ -21,3 +21,10 @@ framework:
             Liip\ImagineBundle\Message\WarmupCache: liip_imagine
             # Route your messages to the transports
             # 'App\Message\YourMessage': async
+
+when@test:
+  framework:
+    messenger:
+      transports:
+        liip_imagine:
+          dsn: 'test://'

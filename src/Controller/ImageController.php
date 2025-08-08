@@ -76,7 +76,6 @@ class ImageController extends AbstractController
                 if ($data->getImage()) {
                     $filename = $imageService->uploadNewPicture($data->getImage(), $image->getId());
 
-                    $imageService->removeOldPicture($image->getImage());
                     $image->setImage($filename);
                 }
 

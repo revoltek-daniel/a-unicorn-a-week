@@ -6,6 +6,10 @@
 parameters:
     daniel.file.path: uploads/images
 
+when@test:
+  parameters:
+    daniel.file.path: public/uploads/images
+
 services:
     # default configuration for services in *this* file
     _defaults:
