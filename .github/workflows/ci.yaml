@@ -36,6 +36,9 @@ jobs:
       - name: Create Assets
         run: bin/console importmap:install; bin/console asset-map:compile
 
+      - name: Create folder
+        run: mkdir -p var/data
+
       - name: Run Unit Tests
         run: vendor/bin/phpunit
 
