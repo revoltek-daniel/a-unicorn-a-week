@@ -21,9 +21,11 @@ class ImageServiceTest extends TestCase
             __DIR__ . '/../../../'
         );
 
+        \copy(__DIR__ . '/../../fixtures/images/testBild-rotated-90.jpeg', '/tmp/testBild-rotated-90.jpeg');
+
         // test rotated image 90 degrees
         $uploadedFile = new UploadedFile(
-            __DIR__ . '/../../fixtures/images/testBild-rotated-90.jpeg',
+            '/tmp/testBild-rotated-90.jpeg',
             'testBild-rotated-90.jpeg',
             'image/jpeg',
             null,
@@ -33,7 +35,8 @@ class ImageServiceTest extends TestCase
         // caution: image will be moved
         $filename = $imageService->uploadNewPicture($uploadedFile, 1);
 
-        $this->assertFileExists(__DIR__ . '/../../../public/uploads/images/' . $filename);
+        $newFilePath = __DIR__ . '/../../../public/uploads/images/' . $filename;
+        $this->assertFileExists($newFilePath);
     }
 
     public function testRotation180(): void
@@ -46,9 +49,11 @@ class ImageServiceTest extends TestCase
             __DIR__ . '/../../../'
         );
 
+        \copy(__DIR__ . '/../../fixtures/images/testBild-rotated-180.jpeg', '/tmp/testBild-rotated-180.jpeg');
+
         // test rotated image 180 degrees
         $uploadedFile = new UploadedFile(
-            __DIR__ . '/../../fixtures/images/testBild-rotated-180.jpeg',
+            '/tmp/testBild-rotated-180.jpeg',
             'testBild-rotated-180.jpeg',
             'image/jpeg',
             null,
@@ -58,7 +63,8 @@ class ImageServiceTest extends TestCase
         // caution: image will be moved
         $filename = $imageService->uploadNewPicture($uploadedFile, 1);
 
-        $this->assertFileExists(__DIR__ . '/../../../public/uploads/images/' . $filename);
+        $newFilePath = __DIR__ . '/../../../public/uploads/images/' . $filename;
+        $this->assertFileExists($newFilePath);
     }
 
     public function testRotation270(): void
@@ -71,9 +77,11 @@ class ImageServiceTest extends TestCase
             __DIR__ . '/../../../'
         );
 
+        \copy(__DIR__ . '/../../fixtures/images/testBild-rotated-270.jpeg', '/tmp/testBild-rotated-270.jpeg');
+
         // test rotated image 270 degrees
         $uploadedFile = new UploadedFile(
-            __DIR__ . '/../../fixtures/images/testBild-rotated-270.jpeg',
+            '/tmp/testBild-rotated-270.jpeg',
             'testBild-rotated-270.jpeg',
             'image/jpeg',
             null,
@@ -83,6 +91,7 @@ class ImageServiceTest extends TestCase
         // caution: image will be moved
         $filename = $imageService->uploadNewPicture($uploadedFile, 1);
 
-        $this->assertFileExists(__DIR__ . '/../../../public/uploads/images/' . $filename);
+        $newFilePath = __DIR__ . '/../../../public/uploads/images/' . $filename;
+        $this->assertFileExists($newFilePath);
     }
 }
