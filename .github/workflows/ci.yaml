@@ -33,7 +33,7 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-progress --no-suggest --prefer-dist --no-scripts
       - name: Create folder
-        run: mkdir var/data
+        run: mkdir -p var/data
       - name: Run Unit Tests
         run: vendor/bin/phpunit
       - name: check db
