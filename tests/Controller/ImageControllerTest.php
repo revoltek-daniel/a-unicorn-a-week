@@ -6,16 +6,19 @@ namespace App\Tests\Controller;
 
 use App\Tests\Factory\ImageFactory;
 use App\Tests\Factory\UserFactory;
+use Liip\ImagineBundle\Message\WarmupCache;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Zenstruck\Browser\Test\HasBrowser;
 use Zenstruck\Foundry\Test\Factories;
 use Zenstruck\Foundry\Test\ResetDatabase;
+use Zenstruck\Messenger\Test\InteractsWithMessenger;
 
 class ImageControllerTest extends WebTestCase
 {
     use HasBrowser;
     use ResetDatabase;
     use Factories;
+    use InteractsWithMessenger;
 
     public function testListImages(): void
     {
@@ -62,12 +65,16 @@ class ImageControllerTest extends WebTestCase
             ->interceptRedirects()
             ->click('Erstellen')
             ->assertRedirectedTo('/admin/image/1')
+            ->assertSee('new_image')
+            ->assertSee('new_description')
         ;
+
+        $this->transport('liip_imagine')->queue()->assertCount(1);
+        $this->transport('liip_imagine')->queue()->assertContains(WarmupCache::class);
     }
 
     public function testEditImage(): void
     {
-        $this->markTestSkipped('Not implemented yet');
         $user = UserFactory::createOne();
 
         $image = ImageFactory::createOne();
@@ -75,7 +82,19 @@ class ImageControllerTest extends WebTestCase
             ->actingAs($user)
             ->visit('/admin/image/' . $image->getId() . '/edit')
             ->assertSuccessful()
+            ->assertSee('Bild bearbeiten')
+            ->fillField('unicorn_image[title]', 'new_image')
+            ->fillField('unicorn_image[description]', 'new_description')
+            ->fillField('unicorn_image[image]', __DIR__ . '/../fixtures/images/testBild.jpeg')
+            ->fillField('unicorn_image[active]', '1')
+            ->interceptRedirects()
+            ->click('Edit')
+            ->assertRedirectedTo('/admin/image/')
+            ->assertSee('new_image')
         ;
+
+        $this->transport('liip_imagine')->queue()->assertCount(1);
+        $this->transport('liip_imagine')->queue()->assertContains(WarmupCache::class);
     }
 
     public function testDeleteImage(): void
