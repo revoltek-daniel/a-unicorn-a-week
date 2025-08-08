@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Imagine\Image\ImagineInterface;
 use Random\RandomException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -20,7 +19,6 @@ class ImageService
     protected array $nonConvertableFiletypes = ['image/jpeg', 'image/png'];
 
     public function __construct(
-        protected EntityManagerInterface $entityManager,
         protected ImagineInterface $imagine,
         protected string $filepath,
         protected string $rootPath,
