@@ -4,6 +4,7 @@ namespace App\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Imagine\Image\ImagineInterface;
+use Random\RandomException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImageService
@@ -32,7 +33,11 @@ class ImageService
             throw new \RuntimeException('daniel.admin.error.picture.invalid');
         }
 
-        $filename = sha1(random_int(0, 50) . $imageId . random_int(0, 50) . $file->getClientOriginalName() . random_int(0, 50));
+        try {
+            $filename = \sha1(random_int(0, 50) . $imageId . random_int(0, 50) . $file->getClientOriginalName() . random_int(0, 50));
+        } catch (RandomException) {
+            throw new \RuntimeException('daniel.admin.error.picture.invalid');
+        }
 
         $exifMetadataReader = $this->imagine->getMetadataReader();
         $exifData = $exifMetadataReader->readFile($file->getPathname());
