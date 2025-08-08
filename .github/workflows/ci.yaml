@@ -41,9 +41,11 @@ jobs:
 
       - name: Create Test Data Artifact
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: tests
           path: var/browser
+
   build:
     name: Build
     runs-on: ubuntu-latest
