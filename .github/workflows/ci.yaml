@@ -85,7 +85,7 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     environment: production
-    needs: build
+    needs: [build, unit-tests]
     env:
       SERVER: "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}"
       PORT: ${{ secrets.SSH_PORT }}
