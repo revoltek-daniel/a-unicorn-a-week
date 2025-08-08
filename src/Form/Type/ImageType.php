@@ -43,6 +43,11 @@ class ImageType extends AbstractType
         $this->addImage($builder);
     }
 
+    public function getBlockPrefix(): string
+    {
+        return 'unicorn_image';
+    }
+
     /**
      * @param FormBuilderInterface $builder
      *

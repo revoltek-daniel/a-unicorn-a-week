@@ -10,15 +10,6 @@ use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
  */
 final class UserFactory extends PersistentProxyObjectFactory
 {
-    /**
-     * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
-     *
-     * @todo inject services if required
-     */
-    public function __construct()
-    {
-    }
-
     public static function class(): string
     {
         return User::class;
@@ -34,18 +25,10 @@ final class UserFactory extends PersistentProxyObjectFactory
         return [
             'isActive' => self::faker()->boolean(),
             'password' => self::faker()->text(),
-            'roles' => [],
+            'roles' => [
+                'ROLE_USER'
+            ],
             'username' => self::faker()->text(),
         ];
-    }
-
-    /**
-     * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#initialization
-     */
-    protected function initialize(): static
-    {
-        return $this
-            // ->afterInstantiate(function(User $user): void {})
-        ;
     }
 }

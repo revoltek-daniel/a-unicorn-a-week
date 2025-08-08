@@ -24,7 +24,8 @@ final class ImageFactory extends PersistentProxyObjectFactory
     {
         return [
             'active' => self::faker()->boolean(),
-            'image' => self::faker()->text(),
+            'description' => self::faker()->text(),
+            'image' => self::faker()->file(__DIR__ . '/../fixtures/images', 'public/uploads/images', false),
             'sorting' => self::faker()->randomNumber(),
             'title' => self::faker()->text(),
         ];

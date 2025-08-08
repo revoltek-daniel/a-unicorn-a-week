@@ -137,8 +137,6 @@ class ImageController extends AbstractController
         ImageService $imageService,
         MessageBusInterface $messageBus
     ): Response {
-        $deleteForm = $this->createDeleteForm($image);
-
         $oldImage = $image->getImage();
 
         if ($oldImage) {
@@ -181,6 +179,7 @@ class ImageController extends AbstractController
             }
         }
 
+        $deleteForm = $this->createDeleteForm($image);
         return $this->render('image/edit.html.twig', [
             'image'       => $image,
             'edit_form'   => $editForm->createView(),

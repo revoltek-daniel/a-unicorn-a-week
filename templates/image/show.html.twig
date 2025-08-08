@@ -10,8 +10,16 @@
                 <td>{{ image.id }}</td>
             </tr>
             <tr>
+                <th>Erstellt am</th>
+                <td>{{ image.created|date('d.m.Y') }}</td>
+            </tr>
+            <tr>
                 <th>Titel</th>
                 <td>{{ image.title }}</td>
+            </tr>
+            <tr>
+                <th>Beschreibung</th>
+                <td>{{ image.description }}</td>
             </tr>
             <tr>
                 <th>Image</th>
