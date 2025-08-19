@@ -101,11 +101,11 @@ class ImageService
                 break;
             case 5:
             case 6:
-                $angle = 270;
+                $angle = 90;
                 break;
             case 7:
             case 8:
-                $angle = 90;
+                $angle = 270;
                 break;
             default:
                 $angle = 0;
