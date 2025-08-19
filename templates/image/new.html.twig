@@ -8,6 +8,7 @@
     {% endfor %}
 
     {{ form_start(form) }}
+        {{ form_errors(form) }}
         {{ form_widget(form) }}
         <input type="submit" value="Erstellen" />
     {{ form_end(form) }}
