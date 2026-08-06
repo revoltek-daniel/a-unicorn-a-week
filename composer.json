@@ -104,7 +104,7 @@
     "require-dev": {
         "ext-simplexml": "*",
         "phpstan/phpstan": ">=2.2.8",
-        "phpunit/phpunit": "^9.6.35",
+        "phpunit/phpunit": ">=13.2.6",
         "roave/security-advisories": "dev-latest",
         "squizlabs/php_codesniffer": ">=4.0.4",
         "symfony/browser-kit": "7.4.*",
