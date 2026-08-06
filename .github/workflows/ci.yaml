@@ -15,7 +15,7 @@ jobs:
       - name: Setup PHP, extensions and composer with shivammathur/setup-php
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.3"
+          php-version: "8.5"
           tools: composer
           coverage: pcov
           extensions: gmagick
@@ -61,7 +61,7 @@ jobs:
       - name: Setup PHP, extensions and composer with shivammathur/setup-php
         uses: shivammathur/setup-php@v2
         with:
-           php-version: "8.3"
+           php-version: "8.5"
            tools: composer, phpcs, phpstan
            coverage: none
 
